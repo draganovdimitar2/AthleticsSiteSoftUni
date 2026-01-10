@@ -1,0 +1,28 @@
+{% load static %}
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static 'css/main.css' %}">
+    <title>Main page</title>
+</head>
+<body {% block body_attrs %}style="--navbar-bg: url('{% static "images/background_image.jpg" %}'); --navbar-bg-pos: 50% 40%;"{% endblock %}>
+    <div class="wrapper">
+        <nav class="navbar">
+            <h1 class="navbar-title">
+                {% block navbar_title %}Начало{% endblock %}
+            </h1>
+            <ul>
+                <li><a href="{% url 'index' %}">Начало</a></li>
+                <li><a href="{% url 'results' %}">Резултати</a></li>
+                <li><a href="#">Контакти</a></li>
+            </ul>
+        </nav>
+        {% block content %}{% endblock %}
+    </div>
+    <footer class="site-footer">
+        <p>&copy; 2025 Всички права запазени.</p>
+    </footer>
+</body>
+</html>

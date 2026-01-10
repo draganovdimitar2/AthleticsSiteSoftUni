@@ -1,0 +1,43 @@
+{% extends 'index.html' %}
+{% load static %}
+
+{% block body_attrs %}
+style="--navbar-bg: url('{% static "images/results-background.jpg" %}'); --navbar-bg-pos: 50% 53%;"
+{% block navbar_title %}Резултати{% endblock %}
+{% endblock %}
+
+{% block content %}
+
+{% if results %}
+    <div class="wrapper-results">
+        <form class="results" method="get">
+            <h2>Резултати </h2>
+            <div class="choose-year-wrapper">
+                <label class="choose-year-label-el">Изберете година:</label>
+                <select name="year" class="year-select" onchange="this.form.submit()">
+                    <option value="">Всички</option>
+                    {% for y in years %}
+                    <option value="{{ y }}" {% if y == selected_year %}selected{% endif %}>
+                        {{ y }}
+                    </option>
+                    {% endfor %}
+                </select>
+            </div>
+            <ul class="files-list">
+                {% for r in results %}
+                    <li class="li-el-files">
+                        {{ r.title }} ({{ r.file_type }})
+                        - <a href="{{ r.file.url }}" target="_blank" class="download-btn-a-el">Изтегли</a>
+                    </li>
+                {% endfor %}
+            </ul>
+        </form>
+    </div>
+{% else %}
+    <div class="no-results-found">
+        <h2>Няма налични резултати към момента, моля опитайте отново по-късно.</h2>
+        <p>Докладвайте за този проблем на тел.: +359ХХХХХХХ</p>
+    </div>
+{% endif %}
+
+{% endblock %}
