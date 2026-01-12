@@ -1,5 +1,5 @@
 """
-URL configuration for AthleticsSiteSoftUni project.
+URL configuration for athletics_site project.
 
 The `urlpatterns` list routes URLs to views. For more information please see:
     https://docs.djangoproject.com/en/6.0/topics/http/urls/
@@ -16,9 +16,8 @@ Including another URLconf
 """
 # from django.contrib import admin
 from django.urls import path, include
-from home_page.views import home_page
 
 urlpatterns = [
-    path('', include('home_page.urls')),
-    path('', include('results.urls')),
+    path('', include('common.urls')),
+    path('', include('records.urls')),
 ]
