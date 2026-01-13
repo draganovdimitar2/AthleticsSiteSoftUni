@@ -1,0 +1,11 @@
+{% extends 'common/home.html' %}
+{% load static %}
+
+{% block body_attrs %}
+style="--navbar-bg: url('{% static "images/athletes-background.jpg" %}'); --navbar-bg-pos: 55% 63%;"
+{% block navbar_title %}Athletes{% endblock %}
+{% endblock %}
+
+{% block content %}
+    <h1>Here i will list the athletes!</h1>
+{% endblock %}
