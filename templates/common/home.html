@@ -11,18 +11,21 @@
     <div class="wrapper">
         <nav class="navbar">
             <h1 class="navbar-title">
-                {% block navbar_title %}Начало{% endblock %}
+                {% block navbar_title %}Home{% endblock %}
             </h1>
             <ul>
-                <li><a href="{% url 'home_page' %}">Начало</a></li>
-                <li><a href="{% url 'results' %}">Резултати</a></li>
-                <li><a href="#">Контакти</a></li>
+                <li><a href="{% url 'home_page' %}">Home</a></li>
+                <li><a href="{% url 'results' %}">Results</a></li>
+                <li><a href="#">Contacts</a></li>
             </ul>
         </nav>
-        {% block content %}{% endblock %}
+        {% block content %}
+            <!-- Child templates will fill this -->
+            <!-- Everything outside of this blocks is shared by all pages.-->
+        {% endblock %}
     </div>
     <footer class="site-footer">
-        <p>&copy; 2025 Всички права запазени.</p>
+        <p>&copy; 2026 All rights reserved. </p>
     </footer>
 </body>
 </html>
