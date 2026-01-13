@@ -15,6 +15,18 @@
             </h1>
             <ul>
                 <li><a href="{% url 'home_page' %}">Home</a></li>
+
+                <ul>
+                    <li class="dropdown">
+                        <a class="dropael" href="{% url 'list_athletes' %}">Athletes</a>
+                        <div class="dropdown-content">
+                            <a href="{% url 'list_athletes' %}">List</a>
+                            <a href="#">Link 2</a>
+                            <a href="#">Link 3</a>
+                        </div>
+                    </li>
+                </ul>
+
                 <li><a href="{% url 'results' %}">Results</a></li>
                 <li><a href="#">Contacts</a></li>
             </ul>

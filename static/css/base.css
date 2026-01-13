@@ -88,3 +88,36 @@ body {
   font-weight: 600;
   width: fit-content;
 }
+
+.dropdown {
+  position: relative;
+}
+
+.dropdown-content {
+    display: none;
+    position: absolute;
+    top: 100%;
+    left: 0;
+
+    width: 100%;
+    border-radius: 0.5em;
+
+    box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
+    z-index: 1000;
+}
+
+.dropdown-content a {
+  display: block;
+  color: black;
+  padding: 0.5em 2em;
+  text-decoration: none;
+  font-weight: bold;
+}
+
+.dropdown-content a:hover {
+  background-color: rgb(204, 204, 0);
+}
+
+.dropdown:hover .dropdown-content {
+  display: block;
+}
