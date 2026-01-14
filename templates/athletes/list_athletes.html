@@ -1,5 +1,4 @@
 {% extends 'common/home.html' %}
-{% load static %}
 
 {% block body_attrs %}
 style="--navbar-bg: url('{% static "images/athletes-background.jpg" %}'); --navbar-bg-pos: 55% 63%;"
@@ -7,5 +6,26 @@ style="--navbar-bg: url('{% static "images/athletes-background.jpg" %}'); --navb
 {% endblock %}
 
 {% block content %}
-    <h1>Here i will list the athletes!</h1>
+    <table>
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Nationality</th>
+                <th>Birth Date</th>
+                <th>Gender</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for athlete in athletes %}
+                <tr>
+                    <td>{{ athlete.first_name }} {{ athlete.last_name }}</td>
+                    <td>{{ athlete.nationality }}</td>
+                    <td>{{ athlete.birth_date }}</td>
+                    <td>{{ athlete.gender }}</td>
+                </tr>
+            {% empty %}
+                <h1>No data available at this moment!</h1>
+            {% endfor %}
+        </tbody>
+    </table>
 {% endblock %}
