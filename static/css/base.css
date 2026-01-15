@@ -1,4 +1,5 @@
-@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700&display=swap');
+@import url('responsive.css');
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;700&display=swap');
 
 :root {
     --primary-color: #007bff;
@@ -14,12 +15,11 @@
 }
 
 html, body {
-    height: 100%;
     margin: 0;
 }
 
 body {
-    font-family: "Roboto", sans-serif;
+    font-family: "Montserrat", sans-serif;
     line-height: 1.6;
     background-color: var(--light-color);
     color: var(--dark-color);
@@ -28,19 +28,23 @@ body {
 .wrapper {
     display: flex;
     flex-direction: column;
-    min-height: 100%;
-    flex-grow: 1;
+    min-height: 100vh;
 }
 
 .navbar {
+    position: sticky;
+    top: 0;
+    z-index: 1000;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
     background: var(--navbar-bg, linear-gradient(to right, #0056b3, #007bff));
+    background-position: var(--navbar-bg-pos, center);
     background-size: cover;
     height: auto;
     padding: 2rem 0;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.2);
 }
 
 .navbar-title {

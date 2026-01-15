@@ -1,23 +1,26 @@
 {% extends 'common/home.html' %}
 {% load static %}
 
+{% block head %}
+    <link rel="stylesheet" href="{% static 'athletes/css/athletes-overview.css' %}">
+{% endblock %}
+
 {% block body_attrs %}
-style="--navbar-bg: url('{% static "images/athletes-background.jpg" %}'); --navbar-bg-pos: 55% 63%;"
+style="--navbar-bg: url('{% static "images/athletes-background.jpg" %}'); --navbar-bg-pos: 55% 48%;"
 {% block navbar_title %}Athletes{% endblock %}
 {% endblock %}
 
 {% block content %}
     <section class="athletes-overview">
-        <h1>This is the athletes overview home page!</h1>
-        <div class="athletes-overview-inner-wrapper">
-            <p>Here you will find several options. Choose one based on your preference:</p>
-
+        <div class="overview-card">
+            <h1>Athlete Directory</h1>
+            <p>Browse the full list of registered athletes or add an athlete.</p>
             <ul class="athletes-overview-btns-wrapper">
                 <li class="btn-a-el">
-                    <a href="{% url 'athletes:list'%}">List all of the athletes.</a>
+                    <a href="{% url 'athletes:list'%}">View All Athletes</a>
                 </li>
-                <li class="btn-a-el">
-                    <a href="{% url 'common:redirect_home'%}">Go back home.</a>
+                <li class="btn-a-el secondary">
+                    <a href="{% url 'athletes:create'%}">Create An Athlete</a>
                 </li>
             </ul>
         </div>

@@ -16,19 +16,15 @@
             <ul>
                 <li><a href="{% url 'common:home_page' %}">Home</a></li>
 
-                <ul>
-                    <li class="dropdown">
-                        <a class="dropael" href="{% url 'athletes:overview' %}">Athletes</a>
-                        <div class="dropdown-content">
-                            <a href="{% url 'athletes:list' %}">List</a>
-                            <a href="{% url 'athletes:create' %}">Create</a>
-                            <a href="#">Link 3</a>
-                        </div>
-                    </li>
-                </ul>
+                <li class="dropdown">
+    <a class="dropael" href="{% url 'athletes:overview' %}">Athletes</a>
+    <div class="dropdown-content">
+        <a href="{% url 'athletes:list' %}">List</a>
+        <a href="{% url 'athletes:create' %}">Create</a>
+    </div>
+</li>
 
                 <li><a href="{% url 'results' %}">Results</a></li>
-                <li><a href="#">Contacts</a></li>
             </ul>
         </nav>
         {% block content %}

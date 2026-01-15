@@ -1,40 +1,61 @@
 .athletes-overview {
-    margin: 1em;
-    padding: 1em;
     display: flex;
-    flex-direction: column;
     justify-content: center;
     align-items: center;
-
-    border: 2px solid grey;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1),
-            0 1px 3px rgba(0, 0, 0, 0.08);
-    border-radius: 2em;
+    padding: 2rem;
+    flex-grow: 1;
 }
 
-.athletes-overview-inner-wrapper {
-    display: flex;
-    flex-direction: column;
-    align-self: flex-start;
-    padding: 0.5em;
+.overview-card {
+    background-color: white;
+    padding: 2.5rem;
+    border-radius: 1rem;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    max-width: 500px;
+    width: 100%;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
+
+.overview-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 12px 32px rgba(0, 0, 0, 0.15);
+}
+
+.overview-card h1 {
+    font-size: 2.5rem;
+    color: var(--dark-color);
+    margin-bottom: 1rem;
+}
+
+.overview-card p {
+    font-size: 1.1rem;
+    color: var(--secondary-color);
+    margin-bottom: 2rem;
+}
+
 .athletes-overview-btns-wrapper {
     display: flex;
-    gap: 2em;
-    margin-top: 1em;
-    margin-bottom: 1em;
-}
-.btn-a-el {
+    justify-content: center;
+    gap: 1.5rem;
     list-style: none;
+    padding: 0;
+    margin: 0;
 }
-.btn-a-el a{
+
+.btn-a-el a {
+    display: inline-block;
     text-decoration: none;
-    background-color: #99FF99;
-    padding: 1em;
-    color: black;
-    border-radius: 1em;
-    font-weight: bold;
+    background-color: var(--primary-color);
+    color: white;
+    padding: 0.8rem 1.8rem;
+    border-radius: 0.5rem;
+    font-weight: 700;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    border: 2px solid var(--primary-color);
 }
-.btn-a-el a:hover{
-    background-color: rgb(204, 204, 0);
+
+.btn-a-el a:hover {
+    background-color: #0056b3; /* A slightly darker shade of the primary color */
+    transform: translateY(-2px);
 }

@@ -1,0 +1,23 @@
+@media (max-width: 1200px) {
+    .table-container {
+        overflow-x: auto;
+    }
+
+    .create-athlete-section {
+        margin: 1.5em auto 3em auto;
+        padding: 1em;
+    }
+
+    .overview-card {
+        padding: 1.5rem;
+    }
+
+    .overview-card h1 {
+        font-size: 2rem;
+    }
+
+    .athletes-overview-btns-wrapper {
+        flex-direction: column;
+        gap: 1rem;
+    }
+}

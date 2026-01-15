@@ -14,4 +14,9 @@ td {
     padding: 0.2em;
 }
 
-
+.no-data-message {
+    text-align: center;
+    margin-top: 2em;
+    font-size: 1.5em;
+    color: var(--secondary-color);
+}
