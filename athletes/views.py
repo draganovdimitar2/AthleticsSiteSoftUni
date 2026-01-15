@@ -1,12 +1,30 @@
 from django.http import HttpRequest, HttpResponse
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from athletes.models import Athletes
+from .forms import CreateAthlete
 
 
 # Create your views here.
+def overview(request: HttpRequest) -> HttpResponse:
+    return render(request, 'athletes/overview.html')
+
+
 def list_athletes(request: HttpRequest) -> HttpResponse:
     athletes = Athletes.objects.all()
     context = {
         'athletes': athletes
     }
     return render(request, 'athletes/list_athletes.html', context)
+
+def create_athlete(request: HttpRequest) -> HttpResponse:
+    if request.method == "POST":
+        form = CreateAthlete(request.POST)
+        if form.is_valid():
+            new_athlete = form.save()
+            return redirect('athletes:list')
+    else:
+        form = CreateAthlete()
+    context = {
+        'form': form
+    }
+    return render(request, 'athletes/create_athlete.html', context)

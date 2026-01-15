@@ -1,0 +1,40 @@
+.athletes-overview {
+    margin: 1em;
+    padding: 1em;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    border: 2px solid grey;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1),
+            0 1px 3px rgba(0, 0, 0, 0.08);
+    border-radius: 2em;
+}
+
+.athletes-overview-inner-wrapper {
+    display: flex;
+    flex-direction: column;
+    align-self: flex-start;
+    padding: 0.5em;
+}
+.athletes-overview-btns-wrapper {
+    display: flex;
+    gap: 2em;
+    margin-top: 1em;
+    margin-bottom: 1em;
+}
+.btn-a-el {
+    list-style: none;
+}
+.btn-a-el a{
+    text-decoration: none;
+    background-color: #99FF99;
+    padding: 1em;
+    color: black;
+    border-radius: 1em;
+    font-weight: bold;
+}
+.btn-a-el a:hover{
+    background-color: rgb(204, 204, 0);
+}

@@ -14,14 +14,14 @@
                 {% block navbar_title %}Home{% endblock %}
             </h1>
             <ul>
-                <li><a href="{% url 'home_page' %}">Home</a></li>
+                <li><a href="{% url 'common:home_page' %}">Home</a></li>
 
                 <ul>
                     <li class="dropdown">
-                        <a class="dropael" href="{% url 'athletes:list' %}">Athletes</a>
+                        <a class="dropael" href="{% url 'athletes:overview' %}">Athletes</a>
                         <div class="dropdown-content">
                             <a href="{% url 'athletes:list' %}">List</a>
-                            <a href="#">Link 2</a>
+                            <a href="{% url 'athletes:create' %}">Create</a>
                             <a href="#">Link 3</a>
                         </div>
                     </li>
@@ -32,8 +32,23 @@
             </ul>
         </nav>
         {% block content %}
-            <!-- Child templates will fill this -->
-            <!-- Everything outside of this blocks is shared by all pages.-->
+            <div class="home-content">
+                <header class="welcome-header">
+                    <h1>Welcome to the Athletics Site</h1>
+                    <p>Your one-stop place for track and field records and athlete information.</p>
+                </header>
+
+                <div class="card-container">
+                    <div class="card">
+                        <h2><a href="{% url 'athletes:overview' %}">Athletes</a></h2>
+                        <p>Explore our database of athletes. View profiles, and check their status.</p>
+                    </div>
+                    <div class="card">
+                        <h2><a href="{% url 'results' %}">Records</a></h2>
+                        <p>Discover world and national records. See the best performances in athletics.</p>
+                    </div>
+                </div>
+            </div>
         {% endblock %}
     </div>
     <footer class="site-footer">
