@@ -1,0 +1,81 @@
+.form-header {
+    font-weight: 400;
+    margin-bottom: 0.5em;
+}
+
+.create-athlete-section {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    border: 2px solid grey;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1),
+            0 1px 3px rgba(0, 0, 0, 0.08);
+    border-radius: 2em;
+    margin: 3em auto 6em auto;
+    padding: 1em 3em;
+}
+
+.create-athlete-section .form-group {
+    display: flex;
+    flex-direction: column; /* labels on top, fields below */
+    align-items: flex-start; /* left align labels and inputs */
+    margin-bottom: 1em;
+    width: 100%; /* stretch fields to container width */
+}
+
+.create-athlete-section label {
+    font-weight: bold;
+    margin-bottom: 0.3em;
+    color: #333;
+}
+
+.create-athlete-section input,
+.create-athlete-section select,
+.create-athlete-section textarea {
+    width: 100%;             /* full width of form-group */
+    padding: 0.5em 0.75em;
+    border: 1.5px solid #ccc;
+    border-radius: 0.5em;
+    font-size: 1rem;
+    box-sizing: border-box;  /* include padding in width */
+    transition: border-color 0.2s;
+}
+
+.create-athlete-section input:focus,
+.create-athlete-section select:focus,
+.create-athlete-section textarea:focus {
+    border-color: #4a90e2; /* highlight on focus */
+    outline: none;
+}
+
+.help-text {
+    font-size: 0.8rem;
+    color: #777;
+    margin-top: 0.2em;
+}
+
+.field-errors {
+    color: #d93025;
+    font-size: 0.85rem;
+    margin-top: 0.2em;
+    list-style: none;
+}
+.form-submit-btn {
+    display: block;
+    margin: 1em auto 0 auto;
+    padding: 0.6em 1.2em;
+    font-size: 1rem;
+    border-radius: 0.7em;
+    border: none;
+    background-color: #e0e0e0;  /* normal */
+    color: #333;                 /* text color */
+    cursor: pointer;             /* shows hand icon on hover */
+    transition: background-color 0.2s, transform 0.1s; /* smooth hover */
+}
+
+.form-submit-btn:hover {
+    background-color: #d5d5d5;  /* slightly darker on hover */
+    transform: scale(1.06);      /* optional subtle grow effect */
+}
+
