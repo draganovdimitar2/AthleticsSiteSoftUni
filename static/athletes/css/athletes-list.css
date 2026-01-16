@@ -1,3 +1,10 @@
+.table-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    margin: 1em auto;
+}
+
 table, th, td {
   border: 2px solid black;
   border-collapse: collapse;
@@ -11,7 +18,7 @@ th {
     font-size: 1.1em;
 }
 td {
-    padding: 0.2em;
+    padding: 1em;
 }
 
 .no-data-message {
@@ -19,4 +26,35 @@ td {
     margin-top: 2em;
     font-size: 1.5em;
     color: var(--secondary-color);
+}
+
+.delete-athlete-btn {
+    text-decoration: none;
+    background-color: var(--primary-color);
+    color: white;
+    border-radius: 2em;
+    padding: 0.5em 1em;
+    font-weight: bold;
+}
+
+.delete-athlete-btn:hover{
+    background-color: red;
+    color: black;
+}
+
+.create-athlete-btn {
+    margin: 1em auto;
+    padding: 1em 1.5em;
+    border-radius: 2em;
+    border: none;
+    background-color: rgb(52, 58, 64);
+}
+
+.create-athlete-btn:hover{
+    transform: translateY(-2px);
+}
+.create-athlete-btn a {
+    text-decoration: none;
+    color: white;
+    font-weight: bold;
 }

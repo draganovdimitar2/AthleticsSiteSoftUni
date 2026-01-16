@@ -2,6 +2,7 @@ from django.http import HttpRequest, HttpResponse
 from django.shortcuts import render, redirect
 from athletes.models import Athletes
 from .forms import CreateAthlete
+from django.shortcuts import get_object_or_404
 
 
 # Create your views here.
@@ -22,9 +23,14 @@ def create_athlete(request: HttpRequest) -> HttpResponse:
         if form.is_valid():
             new_athlete = form.save()
             return redirect('athletes:list')
-    else:
+    else:  # load the form if request is "GET"
         form = CreateAthlete()
     context = {
         'form': form
     }
     return render(request, 'athletes/create_athlete.html', context)
+
+def delete_athlete(request: HttpRequest, athlete_id: int) -> HttpResponse:
+    athlete_to_delete = get_object_or_404(Athletes, pk = athlete_id)
+    athlete_to_delete.delete()
+    return redirect('athletes:list')

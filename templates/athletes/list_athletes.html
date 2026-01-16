@@ -15,6 +15,8 @@ style="--navbar-bg: url('{% static "images/athletes-background.jpg" %}'); --navb
                     <th>Nationality</th>
                     <th>Birth Date</th>
                     <th>Gender</th>
+                    <th>Disciplines</th>
+                    <th>Delete</th>
                 </tr>
             </thead>
             <tbody>
@@ -24,11 +26,16 @@ style="--navbar-bg: url('{% static "images/athletes-background.jpg" %}'); --navb
                         <td>{{ athlete.nationality }}</td>
                         <td>{{ athlete.birth_date }}</td>
                         <td>{{ athlete.gender }}</td>
+                        <td>{{ athlete.disciplines.all|join:", " }}</td>
+                        <td><a href="{% url 'athletes:delete' athlete.id%}" class="delete-athlete-btn"> DELETE</a></td>
                     </tr>
                 {% empty %}
                     <h1 class="no-data-message">No data available at this moment!</h1>
                 {% endfor %}
             </tbody>
         </table>
+        <button class="create-athlete-btn">
+            <a href="{% url 'athletes:create' %}">CREATE ATHLETE</a>
+        </button>
     </div>
 {% endblock %}

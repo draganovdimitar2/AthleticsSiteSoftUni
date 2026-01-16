@@ -8,47 +8,48 @@
     <title>Main page</title>
 </head>
 <body {% block body_attrs %}style="--navbar-bg: url('{% static "images/background_image.jpg" %}'); --navbar-bg-pos: 50% 40%;"{% endblock %}>
-    <div class="wrapper">
-        <nav class="navbar">
-            <h1 class="navbar-title">
-                {% block navbar_title %}Home{% endblock %}
-            </h1>
-            <ul>
-                <li><a href="{% url 'common:home_page' %}">Home</a></li>
+<div class="wrapper">
+    <nav class="navbar">
+        <h1 class="navbar-title">
+            {% block navbar_title %}Home{% endblock %}
+        </h1>
+        <ul>
+            <li><a href="{% url 'common:home_page' %}">Home</a></li>
 
-                <li class="dropdown">
-    <a class="dropael" href="{% url 'athletes:overview' %}">Athletes</a>
-    <div class="dropdown-content">
-        <a href="{% url 'athletes:list' %}">List</a>
-        <a href="{% url 'athletes:create' %}">Create</a>
-    </div>
-</li>
+            <li class="dropdown">
+                <a class="dropael" href="{% url 'athletes:overview' %}">Athletes</a>
+                <div class="dropdown-content">
+                    <a href="{% url 'athletes:list' %}">List of athletes</a>
+                    <a href="{% url 'athletes:create' %}">Create an athlete</a>
+                    <a href="">List of disciplines</a>
+                </div>
+            </li>
 
-                <li><a href="{% url 'results' %}">Results</a></li>
-            </ul>
-        </nav>
-        {% block content %}
-            <div class="home-content">
-                <header class="welcome-header">
-                    <h1>Welcome to the Athletics Site</h1>
-                    <p>Your one-stop place for track and field records and athlete information.</p>
-                </header>
+            <li><a href="{% url 'results' %}">Results</a></li>
+        </ul>
+    </nav>
+    {% block content %}
+        <div class="home-content">
+            <header class="welcome-header">
+                <h1>Welcome to the Athletics Site</h1>
+                <p>Your one-stop place for track and field records and athlete information.</p>
+            </header>
 
-                <div class="card-container">
-                    <div class="card">
-                        <h2><a href="{% url 'athletes:overview' %}">Athletes</a></h2>
-                        <p>Explore our database of athletes. View profiles, and check their status.</p>
-                    </div>
-                    <div class="card">
-                        <h2><a href="{% url 'results' %}">Records</a></h2>
-                        <p>Discover world and national records. See the best performances in athletics.</p>
-                    </div>
+            <div class="card-container">
+                <div class="card">
+                    <h2><a href="{% url 'athletes:overview' %}">Athletes</a></h2>
+                    <p>Explore our database of athletes. View profiles, and check their status.</p>
+                </div>
+                <div class="card">
+                    <h2><a href="{% url 'results' %}">Records</a></h2>
+                    <p>Discover world and national records. See the best performances in athletics.</p>
                 </div>
             </div>
-        {% endblock %}
-    </div>
-    <footer class="site-footer">
-        <p>&copy; 2026 All rights reserved. </p>
-    </footer>
+        </div>
+    {% endblock %}
+</div>
+<footer class="site-footer">
+    <p>&copy; 2026 All rights reserved. </p>
+</footer>
 </body>
 </html>

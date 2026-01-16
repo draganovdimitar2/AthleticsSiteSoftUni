@@ -28,7 +28,7 @@ class Athletes(models.Model):
         choices=GenderChoices.choices
     )
     disciplines = models.ManyToManyField( # many to many relation with discipline table
-        'Discipline',
+        'Disciplines',
         related_name='athletes'
     )
     created_at = models.DateTimeField(
@@ -62,8 +62,7 @@ class AgeCategories(models.Model):
 
     name = models.CharField(
         max_length=4,
-        choices=Name.choices,
-        unique=True  # have to save each category just one time in db to make relations work as intended
+        choices=Name.choices
     )
 
     gender = models.CharField(
@@ -80,6 +79,11 @@ class AgeCategories(models.Model):
         blank=True,
         null=True
     )
+
+    class Meta:
+        constraints = [  # we can have each age category name appear only twice - for M and F gender. (for e.g. U20 M and U20 F)
+            models.UniqueConstraint(fields=['name', 'gender'], name='unique_name_gender')
+        ]
 
     def save(self, *args, **kwargs):
         category_age_map = {
@@ -107,7 +111,7 @@ class AgeCategories(models.Model):
         return f"{self.get_name_display()} ({self.get_gender_display()})"
 
 
-class Discipline(models.Model):
+class Disciplines(models.Model):
     name = models.CharField(
         blank=False,
         null=False,
