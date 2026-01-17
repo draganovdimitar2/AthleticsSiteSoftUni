@@ -5,6 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="{% static 'css/main.css' %}">
+    <link rel="stylesheet" href="{% static 'css/responsive.css' %}">
     <title>Main page</title>
 </head>
 <body {% block body_attrs %}style="--navbar-bg: url('{% static "images/background_image.jpg" %}'); --navbar-bg-pos: 50% 40%;"{% endblock %}>
@@ -13,6 +14,11 @@
         <h1 class="navbar-title">
             {% block navbar_title %}Home{% endblock %}
         </h1>
+        <div class="hamburger-menu">
+            <div class="line"></div>
+            <div class="line"></div>
+            <div class="line"></div>
+        </div>
         <ul>
             <li><a href="{% url 'common:home_page' %}">Home</a></li>
 
@@ -54,5 +60,6 @@
 <footer class="site-footer">
     <p>&copy; 2026 All rights reserved. </p>
 </footer>
+<script src="{% static 'js/main.js' %}"></script>
 </body>
 </html>
