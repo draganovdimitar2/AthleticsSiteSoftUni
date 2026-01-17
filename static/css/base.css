@@ -2,7 +2,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;700&display=swap');
 
 :root {
-    --primary-color: #007bff;
+    --primary-color: #DAA520;
     --secondary-color: #6c757d;
     --light-color: #f8f9fa;
     --dark-color: #343a40;
@@ -130,7 +130,7 @@ body {
 }
 
 .dropdown:hover .dropdown-content a:hover {
-    color: #005FCC;
+    color: #FFD700;
 }
 
 .dropdown:hover .dropdown-content {
@@ -190,4 +190,10 @@ body {
 .card p {
     margin-top: 1rem;
     color: var(--secondary-color);
+}
+
+.card-link {
+    text-decoration: none;
+    color: inherit;
+    display: block;
 }

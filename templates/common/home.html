@@ -21,10 +21,9 @@
                 <div class="dropdown-content">
                     <a href="{% url 'athletes:list' %}">List of athletes</a>
                     <a href="{% url 'athletes:create' %}">Create an athlete</a>
-                    <a href="">List of disciplines</a>
                 </div>
             </li>
-
+            <li><a href="{% url 'common:disciplines' %}">Disciplines</a></li>
             <li><a href="{% url 'results' %}">Results</a></li>
         </ul>
     </nav>
@@ -36,14 +35,18 @@
             </header>
 
             <div class="card-container">
-                <div class="card">
-                    <h2><a href="{% url 'athletes:overview' %}">Athletes</a></h2>
-                    <p>Explore our database of athletes. View profiles, and check their status.</p>
-                </div>
-                <div class="card">
-                    <h2><a href="{% url 'results' %}">Records</a></h2>
-                    <p>Discover world and national records. See the best performances in athletics.</p>
-                </div>
+                <a href="{% url 'athletes:overview' %}" class="card-link">
+                    <div class="card">
+                        <h2>Athletes</h2>
+                        <p>Explore our database of athletes. View profiles, and check their status.</p>
+                    </div>
+                </a>
+                <a href="{% url 'results' %}" class="card-link">
+                    <div class="card">
+                        <h2>Records</h2>
+                        <p>Discover world and national records. See the best performances in athletics.</p>
+                    </div>
+                </a>
             </div>
         </div>
     {% endblock %}

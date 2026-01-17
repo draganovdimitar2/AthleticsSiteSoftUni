@@ -28,7 +28,7 @@ td {
     color: var(--secondary-color);
 }
 
-.delete-athlete-btn {
+.delete-athlete-btn, .update-athlete-btn {
     text-decoration: none;
     background-color: var(--primary-color);
     color: white;
@@ -39,6 +39,11 @@ td {
 
 .delete-athlete-btn:hover{
     background-color: red;
+    color: black;
+}
+
+.update-athlete-btn:hover {
+    background-color: lightgreen;
     color: black;
 }
 

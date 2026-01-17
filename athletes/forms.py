@@ -7,7 +7,9 @@ class CreateAthlete(forms.ModelForm):
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
-        self.fields['birth_date'].initial = date(2000, 1, 1)  # force the calendar to start at 01/01/2000
+
+        if not self.instance.pk:  # only set default birthdate when obj is new
+            self.fields['birth_date'].initial = date(2000, 1, 1)  # force the calendar to start at 01/01/2000
 
     class Meta:
         model = Athletes

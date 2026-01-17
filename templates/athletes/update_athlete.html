@@ -3,14 +3,14 @@
 
 {% block body_attrs %}
     style="--navbar-bg: url('{% static "images/athletes-background.jpg" %}'); --navbar-bg-pos: 55% 48%;"
-    {% block navbar_title %}List of Athletes{% endblock %}
+    {% block navbar_title %}Update Athlete{% endblock %}
 {% endblock %}
 
 {% block content %}
     <section class="create-athlete-section">
-        <h1 class="form-header">CREATE ATHLETE</h1>
+        <h1 class="form-header">UPDATE ATHLETE</h1>
         <form method="post" novalidate>
-        {# make POST to athletes/create/ #}
+        {#  POST to /athletes/update/athlete_id/ #}
             {% csrf_token %}
             {% for field in form %}
                 <div class="form-group">
