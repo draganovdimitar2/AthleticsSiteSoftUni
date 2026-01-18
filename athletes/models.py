@@ -1,15 +1,14 @@
 from django.db import models
-from django.db.models import Model
 
 
 # Create your models here.
 
-class GenderChoices(models.TextChoices):
+class GenderChoice(models.TextChoices):
     MALE = 'M', 'Male'
     FEMALE = 'F', 'Female'
 
 
-class Athletes(models.Model):
+class Athlete(models.Model):
     first_name = models.CharField(
         max_length=50
     )
@@ -25,11 +24,11 @@ class Athletes(models.Model):
     )
     gender = models.CharField(
         max_length=1,
-        choices=GenderChoices.choices
+        choices=GenderChoice.choices
     )
-    disciplines = models.ManyToManyField( # many to many relation with discipline table
-        'Disciplines',
-        related_name='athletes'
+    disciplines = models.ManyToManyField(  # many to many relation with discipline table
+        'Discipline',
+        related_name='athlete'
     )
     created_at = models.DateTimeField(
         auto_now_add=True
@@ -45,7 +44,7 @@ class Athletes(models.Model):
         ordering = ['last_name', 'first_name']
 
 
-class AgeCategories(models.Model):
+class AgeCategory(models.Model):
     class Name(models.TextChoices):
         UNDER_14 = 'U14', 'Under 14'
         UNDER_16 = 'U16', 'Under 16'
@@ -67,7 +66,7 @@ class AgeCategories(models.Model):
 
     gender = models.CharField(
         max_length=1,
-        choices=GenderChoices.choices
+        choices=GenderChoice.choices
     )
 
     min_age = models.PositiveIntegerField(
@@ -81,7 +80,8 @@ class AgeCategories(models.Model):
     )
 
     class Meta:
-        constraints = [  # we can have each age category name appear only twice - for M and F gender. (for e.g. U20 M and U20 F)
+        constraints = [
+            # we can have each age category name appear only twice - for M and F gender. (for e.g. U20 M and U20 F)
             models.UniqueConstraint(fields=['name', 'gender'], name='unique_name_gender')
         ]
 
@@ -111,7 +111,7 @@ class AgeCategories(models.Model):
         return f"{self.get_name_display()} ({self.get_gender_display()})"
 
 
-class Disciplines(models.Model):
+class Discipline(models.Model):
     name = models.CharField(
         blank=False,
         null=False,
