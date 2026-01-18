@@ -1,6 +1,6 @@
 from django import forms
 from datetime import date
-from .models import Athletes, Disciplines
+from .models import Athlete
 
 
 class CreateAthlete(forms.ModelForm):
@@ -12,7 +12,7 @@ class CreateAthlete(forms.ModelForm):
             self.fields['birth_date'].initial = date(2000, 1, 1)  # force the calendar to start at 01/01/2000
 
     class Meta:
-        model = Athletes
+        model = Athlete
         fields = [
             'first_name',
             'last_name',

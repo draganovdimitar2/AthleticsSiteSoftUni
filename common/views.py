@@ -1,6 +1,6 @@
 from django.http import HttpResponse, HttpRequest
 from django.shortcuts import render, redirect
-from athletes.models import Disciplines
+from athletes.models import Discipline
 
 
 # Create your views here.
@@ -13,7 +13,7 @@ def redirect_home(request: HttpRequest) -> HttpResponse:
 
 
 def disciplines(request: HttpRequest) -> HttpResponse:
-    all_disciplines = Disciplines.objects.all()
+    all_disciplines = Discipline.objects.all()
     context = {
         "disciplines": all_disciplines
     }

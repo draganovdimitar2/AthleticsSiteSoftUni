@@ -21,6 +21,7 @@ from django.contrib import admin
 urlpatterns = [
     path("admin/", admin.site.urls),
     path('', include('common.urls')),
-    path('', include('records.urls')),
-    path('athletes/', include('athletes.urls'))
+    path('results/', include('records.urls')),
+    path('athletes/', include('athletes.urls')),
+    path('competitions/', include('competitions.urls'))
 ]
