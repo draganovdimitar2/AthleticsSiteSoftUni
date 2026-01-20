@@ -1,0 +1,35 @@
+{% extends 'common/home.html' %}
+{% load static %}
+
+{% block body_attrs %}
+style="--navbar-bg: url('{% static "images/athletes-background.jpg" %}'); --navbar-bg-pos: 55% 48%;"
+{% block navbar_title %}Competitions{% endblock %}
+{% endblock %}
+
+{% block content %}
+<div class="competition-grid">
+    {% for competition in competitions %}
+        <div class="competition-card">
+            <h2 class="competition-title">{{ competition.name }}</h2>
+
+            <div class="competition-details">
+                <p><i class="fa-solid fa-globe"></i> <strong>Country:</strong> {{ competition.country }}</p>
+                <p><i class="fa-solid fa-city"></i> <strong>City:</strong> {{ competition.city }}</p>
+                <p><i class="fa-solid fa-tags"></i> <strong>Category:</strong> {{ competition.category }}</p>
+            </div>
+
+
+            <div class="age-grid">
+                <h3>Age categories</h3>
+                {% for age in competition.age_groups.all %}
+                    <span class="age-chip">{{ age }}</span>
+                {% empty %}
+                    <span class="age-empty">No age categories</span>
+                {% endfor %}
+            </div>
+        </div>
+    {% empty %}
+        <h2>No data available!</h2>
+    {% endfor %}
+</div>
+{% endblock %}
