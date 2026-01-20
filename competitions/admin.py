@@ -17,6 +17,6 @@ class CompetitionCategoryAdmin(admin.ModelAdmin):
 
 @admin.register(Competition)
 class CompetitionAdmin(admin.ModelAdmin):
-    list_display = ['name', 'country', 'city', 'category']
-    search_fields = ['name', 'country', 'category']
-    list_filter = ['category']
+    list_display = ['name', 'country', 'city']
+    search_fields = ['name', 'country']
+    list_filter = ['name', 'country']
