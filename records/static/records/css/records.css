@@ -55,6 +55,36 @@
     outline: none;
 }
 
+.choose-competition-wrapper {
+    display: flex;
+    align-items: center;
+    justify-content: center; /* Center the label and input */
+    margin-bottom: 20px;
+    gap: 10px; /* Space between label and input */
+}
+
+.choose-competition-label-el {
+    font-weight: bold;
+    color: var(--dark-color);
+    font-size: 1.1em;
+}
+
+.competition-select {
+    padding: 8px 12px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 1em;
+    background-color: #f9f9f9;
+    color: var(--dark-color);
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.competition-select:focus {
+    border-color: var(--primary-color);
+    box-shadow: 0 0 5px rgba(218, 165, 32, 0.5);
+    outline: none;
+}
+
 .table-wrapper {
     width: 100%;
     max-width: 100%; /* Changed from 90% to 100% to fill results form */
