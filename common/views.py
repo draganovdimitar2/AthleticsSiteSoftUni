@@ -18,3 +18,6 @@ def disciplines(request: HttpRequest) -> HttpResponse:
         "disciplines": all_disciplines
     }
     return render(request, 'common/disciplines.html', context)
+
+def contact_page(request: HttpRequest) -> HttpResponse:
+    return render(request, 'common/contact.html')
