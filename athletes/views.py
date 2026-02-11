@@ -1,7 +1,7 @@
 from django.http import HttpRequest, HttpResponse
 from django.shortcuts import render, redirect
 from athletes.models import Athlete
-from .forms import CreateAthlete
+from .forms import CreateAthlete, UpdateAthlete
 from django.shortcuts import get_object_or_404
 
 
@@ -35,19 +35,25 @@ def create_athlete(request: HttpRequest) -> HttpResponse:
 def update_athlete(request: HttpRequest, athlete_id: int) -> HttpResponse:
     athlete = get_object_or_404(Athlete, pk=athlete_id)
     if request.method == "POST":
-        form = CreateAthlete(request.POST, instance=athlete)
+        form = UpdateAthlete(request.POST, instance=athlete)
         if form.is_valid():
             form.save()
             return redirect('athletes:list')
     else:  # load the form if request is "GET"
-        form = CreateAthlete(instance=athlete)
+        form = UpdateAthlete(instance=athlete)
     context = {
         'form': form
     }
     return render(request, 'athletes/update_athlete.html', context)
 
 
-def delete_athlete(request: HttpRequest, athlete_id: int) -> HttpResponse:
+def confirm_delete_athlete(request: HttpRequest, athlete_id: int) -> HttpResponse:
     athlete_to_delete = get_object_or_404(Athlete, pk=athlete_id)
-    athlete_to_delete.delete()
-    return redirect('athletes:list')
+    if request.method == "POST":
+        athlete_to_delete.delete()
+        return redirect('athletes:list')
+    else:
+        context = {
+            'athlete_to_delete': athlete_to_delete
+        }
+        return render(request, 'athletes/confirm_athlete_deletion.html', context)

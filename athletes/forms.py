@@ -3,14 +3,7 @@ from datetime import date
 from .models import Athlete
 
 
-class CreateAthlete(forms.ModelForm):
-
-    def __init__(self, *args, **kwargs):
-        super().__init__(*args, **kwargs)
-
-        if not self.instance.pk:  # only set default birthdate when obj is new
-            self.fields['birth_date'].initial = date(2000, 1, 1)  # force the calendar to start at 01/01/2000
-
+class BaseAthleteForm(forms.ModelForm):
     class Meta:
         model = Athlete
         fields = [
@@ -61,3 +54,15 @@ class CreateAthlete(forms.ModelForm):
             if age < 10:
                 raise forms.ValidationError('Athlete must be at least 10 years old.')
         return birth_date
+
+
+class CreateAthlete(BaseAthleteForm):
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.fields['birth_date'].initial = date(2000, 1, 1)  # force the calendar to start at 01/01/2000
+
+
+class UpdateAthlete(BaseAthleteForm):
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.fields['birth_date'].disabled = True
