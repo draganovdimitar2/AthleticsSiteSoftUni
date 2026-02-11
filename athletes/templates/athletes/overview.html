@@ -1,0 +1,30 @@
+{% extends 'common/base.html' %}
+{% load static %}
+
+{% block extra_head %}
+    <link rel="stylesheet" href="{% static 'athletes/css/athletes-overview.css' %}">
+{% endblock %}
+
+{% block title %}Athletes Overview{% endblock %}
+
+{% block body_attrs %}style="--navbar-bg: url('{% static "common/images/athletes-background.jpg" %}'); --navbar-bg-pos: 55% 48%;"{% endblock %}
+
+{% block navbar_title %}Athletes{% endblock %}
+
+{% block content %}
+    <section class="athletes-overview">
+        <div class="overview-card">
+            <h1>Athlete Directory</h1>
+            <p>Browse the full list of registered athletes or add an athlete.</p>
+            <ul class="athletes-overview-btns-wrapper">
+                <li class="btn-a-el">
+                    <a href="{% url 'athletes:list'%}">View All Athletes</a>
+                </li>
+                <li class="btn-a-el secondary">
+                    <a href="{% url 'athletes:create'%}">Create An Athlete</a>
+                </li>
+            </ul>
+        </div>
+    </section>
+
+{% endblock %}

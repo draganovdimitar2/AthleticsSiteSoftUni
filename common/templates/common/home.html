@@ -1,0 +1,34 @@
+{% extends 'common/base.html' %}
+{% load static %}
+
+{% block title %}Main page{% endblock %}
+
+{% block body_attrs %}style="--navbar-bg: url('{% static "common/images/background_image.jpg" %}'); --navbar-bg-pos: 50% 40%;"{% endblock %}
+
+{% block content %}
+    <div class="home-content">
+        <header class="welcome-header">
+            <h1>Welcome to the Athletics Site</h1>
+            <p>Your one-stop place for track and field records and athlete information.</p>
+        </header>
+
+        <div class="card-container">
+            <a href="{% url 'athletes:overview' %}" class="card-link">
+                <div class="card">
+                    <h2>Athletes</h2>
+                    <p>Explore our database of athletes. View profiles, and check their status.</p>
+                </div>
+            </a>
+            <a href="{% url 'results' %}" class="card-link">
+                <div class="card">
+                    <h2>Records</h2>
+                    <p>Discover world and national records. See the best performances in athletics.</p>
+                </div>
+            </a>
+        </div>
+    </div>
+{% endblock %}
+
+{% block extra_head %}
+    <link rel="stylesheet" href="{% static 'common/css/main.css' %}">
+{% endblock %}

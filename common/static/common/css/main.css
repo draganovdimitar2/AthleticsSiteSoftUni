@@ -1,0 +1,60 @@
+/* Home page specific styles */
+.home-content {
+    padding: 2rem;
+    text-align: center;
+    flex-grow: 1;
+}
+
+.welcome-header {
+    margin-bottom: 3rem;
+}
+
+.welcome-header h1 {
+    font-size: 2.5rem;
+    margin-bottom: 0.5rem;
+    color: var(--primary-color);
+}
+
+.welcome-header p {
+    font-size: 1.2rem;
+    color: var(--secondary-color);
+}
+
+.card-container {
+    display: flex;
+    justify-content: center;
+    gap: 2rem;
+    flex-wrap: wrap;
+}
+
+.card {
+    background-color: white;
+    padding: 2rem;
+    border-radius: 0.5rem;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    width: 300px;
+    text-align: left;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 16px rgba(0,0,0,0.15);
+}
+
+.card h2 a {
+    text-decoration: none;
+    color: var(--primary-color);
+    font-size: 1.5rem;
+}
+
+.card p {
+    margin-top: 1rem;
+    color: var(--secondary-color);
+}
+
+.card-link {
+    text-decoration: none;
+    color: inherit;
+    display: block;
+}

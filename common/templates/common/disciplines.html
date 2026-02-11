@@ -1,0 +1,35 @@
+{% extends 'common/base.html' %}
+{% load static %}
+
+{% block title %}Disciplines{% endblock %}
+
+{% block extra_head %}
+    <link rel="stylesheet" href="{% static 'athletes/css/athletes-list.css' %}">
+{% endblock %}
+
+{% block body_attrs %}style="--navbar-bg: url('{% static "common/images/athletes-background.jpg" %}'); --navbar-bg-pos: 55% 48%;"{% endblock %}
+
+{% block navbar_title %}Disciplines{% endblock %}
+
+{% block content %}
+    <div class="table-container">
+        <table>
+            <thead>
+                <tr>
+                    <th>№</th>
+                    <th>List of disciplines</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for discipline in disciplines %}
+                    <tr>
+                        <td align="center">{{ discipline.id }}</td>
+                        <td align="center">{{ discipline.name }}</td>
+                    </tr>
+                {% empty %}
+                    <h1 class="no-data-message">No data available at this moment!</h1>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+{% endblock %}

@@ -1,0 +1,35 @@
+{% extends 'common/base.html' %}
+{% load static %}
+
+{% block extra_head %}
+    <link rel="stylesheet" href="{% static 'athletes/css/athletes-create.css' %}">
+{% endblock %}
+
+{% block title %}Create Athlete{% endblock %}
+
+{% block body_attrs %}style="--navbar-bg: url('{% static "common/images/athletes-background.jpg" %}'); --navbar-bg-pos: 55% 48%;"{% endblock %}
+
+{% block navbar_title %}Create Athlete{% endblock %}
+
+{% block content %}
+    <section class="create-athlete-section">
+        <h1 class="form-header">CREATE ATHLETE</h1>
+        <form method="post" novalidate>
+        {# make POST to athletes/create/ #}
+            {% csrf_token %}
+            {% for field in form %}
+                <div class="form-group">
+                    {{ field.label_tag }}
+                    {{ field }}
+                    {% if field.help_text %}
+                        <small class="help-text">{{ field.help_text }}</small>
+                    {% endif %}
+                    {% if field.errors %}
+                        <div class="field-errors">{{ field.errors }}</div>
+                    {% endif %}
+                </div>
+            {% endfor %}
+            <button class="form-submit-btn">Submit</button>
+        </form>
+    </section>
+{% endblock %}

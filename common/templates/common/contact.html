@@ -1,0 +1,54 @@
+{% extends 'common/base.html' %}
+{% load static %}
+
+{% block title %}Contact Us{% endblock %}
+
+{% block extra_head %}
+    <link rel="stylesheet" href="{% static 'common/css/contact.css' %}">
+{% endblock %}
+
+{% block body_attrs %}style="--navbar-bg: url('{% static "common/images/background_image.jpg" %}'); --navbar-bg-pos: 50% 50%;"{% endblock %}
+
+{% block navbar_title %}Contact{% endblock %}
+
+{% block content %}
+<div class="contact-container">
+    <h1>Contact Us</h1>
+    <p>We'd love to hear from you! Please find our contact information below or use the accordion for FAQs.</p>
+
+    <div class="contact-info">
+        <p><strong>Email:</strong> info@athleticssite.com</p>
+        <p><strong>Phone:</strong> +1 (123) 456-7890</p>
+        <p><strong>Address:</strong> 123 Athletics Avenue, Sportsville, USA</p>
+    </div>
+
+    <div class="accordion-container">
+        <h2>Frequently Asked Questions</h2>
+
+        <div class="accordion-item">
+            <button class="accordion-header">What are your operating hours?</button>
+            <div class="accordion-content">
+                <p>Our office hours are Monday to Friday, 9:00 AM to 5:00 PM (Local Time).</p>
+            </div>
+        </div>
+
+        <div class="accordion-item">
+            <button class="accordion-header">How can I register for competitions?</button>
+            <div class="accordion-content">
+                <p>You can register for competitions through our 'Competitions' page. Please check for upcoming events and registration deadlines.</p>
+            </div>
+        </div>
+
+        <div class="accordion-item">
+            <button class="accordion-header">Where can I find results?</button>
+            <div class="accordion-content">
+                <p>Results for past competitions are available on our 'Records' page, usually updated within 24-48 hours after an event.</p>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_scripts %}
+    <script src="{% static 'common/js/contact.js' %}"></script>
+{% endblock %}
