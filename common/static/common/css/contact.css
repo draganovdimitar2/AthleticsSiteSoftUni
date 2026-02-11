@@ -1,0 +1,103 @@
+/* static/css/contact.css */
+
+.contact-container {
+    max-width: 800px;
+    margin: 50px auto;
+    padding: 20px;
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    text-align: center;
+}
+
+.contact-container h1 {
+    color: #333;
+    margin-bottom: 20px;
+}
+
+.contact-info p {
+    font-size: 1.1em;
+    color: #555;
+    margin: 10px 0;
+}
+
+.accordion-container {
+    margin-top: 30px;
+    text-align: left;
+}
+
+.accordion-container h2 {
+    color: #333;
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+.accordion-item {
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    margin-bottom: 10px;
+    overflow: hidden;
+}
+
+.accordion-header {
+    background-color: #f7f7f7;
+    color: #333;
+    cursor: pointer;
+    padding: 18px;
+    width: 100%;
+    border: none;
+    text-align: left;
+    outline: none;
+    font-size: 1.1em;
+    transition: background-color 0.3s ease;
+}
+
+.accordion-header:hover, .accordion-header.active {
+    background-color: #ddd;
+}
+
+.accordion-content {
+    padding: 0 18px;
+    background-color: white;
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.2s ease-out;
+}
+
+.accordion-content p {
+    color: #666;
+    padding: 10px 0;
+    margin: 0;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .contact-container {
+        margin: 20px auto;
+        padding: 15px;
+    }
+
+    .contact-info p, .accordion-header {
+        font-size: 1em;
+    }
+    .accordion-content p {
+        font-size: 0.8em;
+    }
+}
+
+@media (max-width: 480px) {
+    .contact-container {
+        margin: 10px auto;
+        padding: 10px;
+        border-radius: 0;
+    }
+
+    .contact-info p, .accordion-header {
+        font-size: 0.9em;
+        padding: 15px;
+    }
+
+    .accordion-content p {
+        font-size: 0.8em;
+    }
+}
