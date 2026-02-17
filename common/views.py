@@ -24,5 +24,5 @@ def contact_page(request: HttpRequest) -> HttpResponse:
     return render(request, 'common/contact.html')
 
 
-def test_404_view(request: HttpRequest) -> HttpResponse:
-    raise Http404("Testing custom 404 page")
+def custom_404_view(request, exception):
+    return render(request, 'common/404.html', status=404)
