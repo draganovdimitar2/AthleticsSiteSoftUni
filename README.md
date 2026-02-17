@@ -91,7 +91,52 @@ To load the data, run the following command:
 ```bash
 python load_data.py
 ```
+## Custom 404 Page
 
+This project includes a custom 404 error page located at `common/templates/common/404.html`.
+
+### How to view it
+1. **Set `DEBUG=False`**  
+   The 404 page with styling and images only works when `DEBUG=False`.  
+   Update your `settings.py` for local testing:
+
+   ```python
+   DEBUG = False
+   ALLOWED_HOSTS = ['localhost', '127.0.0.1']  # or ['*']
+   ```
+
+2. **Ensure static files are set up**  
+   The 404 page uses CSS and images located in `common/static/common/`. Make sure `STATIC_URL` and `STATIC_ROOT` are configured in `settings.py`:
+
+   ```python
+   STATIC_URL = '/static/'
+   STATIC_ROOT = BASE_DIR / "staticfiles"
+3. **Run `collectstatic`**  
+    With DEBUG=False, Django doesn’t serve static files automatically. Collect all static files:
+    ```bash
+    python manage.py collectstatic
+    ```
+4. **Keep WhiteNoise (or your static server) active**
+
+    The project uses WhiteNoise to serve static files when DEBUG=False. Make sure this middleware is enabled:
+    ```bash
+    MIDDLEWARE = [
+    'django.middleware.security.SecurityMiddleware',
+    'whitenoise.middleware.WhiteNoiseMiddleware',
+    # ... other middleware
+    ]
+    ```
+5. **Trigger the 404 page**
+
+    You can visit a non-existent URL (e.g., /this-page-does-not-exist/) or use the test view:
+    ```bash
+    http://127.0.0.1:8000/test-404/
+    ```
+   This will show the 404 page
+
+### Notes
+* The 404 page will only render correctly when DEBUG=False.
+* For local development, you can temporarily set DEBUG=True to bypass static serving issues, but the full 404 experience requires production/static setup.
 ## Technologies Used
 
 *   **Backend Language**: Python

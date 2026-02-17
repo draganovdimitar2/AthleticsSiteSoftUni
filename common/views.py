@@ -1,4 +1,4 @@
-from django.http import HttpResponse, HttpRequest
+from django.http import HttpResponse, HttpRequest, Http404
 from django.shortcuts import render, redirect
 from athletes.models import Discipline
 
@@ -19,5 +19,10 @@ def disciplines(request: HttpRequest) -> HttpResponse:
     }
     return render(request, 'common/disciplines.html', context)
 
+
 def contact_page(request: HttpRequest) -> HttpResponse:
     return render(request, 'common/contact.html')
+
+
+def test_404_view(request: HttpRequest) -> HttpResponse:
+    raise Http404("Testing custom 404 page")

@@ -1,0 +1,22 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>404 – Athletic Fail!</title>
+    <link rel="stylesheet" href="{% static 'common/css/404.css' %}">
+</head>
+<body>
+    <div class="not-found-container">
+        <div class="not-found-content">
+            <h1>404</h1>
+            <p>Oops! You tripped over a hurdle and landed here.</p>
+            <p>This athlete knows your pain.</p>
+            <a href="{% url 'common:home_page' %}">Get back on track →</a>
+        </div>
+        <div class="not-found-image">
+            <img src="{% static 'common/images/error_404.jpg' %}" alt="Athlete falling over hurdle">
+        </div>
+    </div>
+</body>
+</html>
