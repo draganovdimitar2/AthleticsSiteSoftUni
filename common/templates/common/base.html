@@ -31,7 +31,15 @@
                 </div>
             </li>
             <li><a href="{% url 'common:disciplines' %}">Disciplines</a></li>
-            <li><a href="{% url 'competitions:list' %}">Competitions</a></li>
+            <li class="dropdown">
+                <a class="dropael" href="{% url 'competitions:list' %}">Competitions</a>
+                <div class="dropdown-content">
+                    <a href="{% url 'competitions:list' %}">List of competitions</a>
+                    <a href="{% url 'competitions:create' %}">Create a competition</a>
+                    <a href="{% url 'common:age_categories' %}">Age Categories</a>
+                    <a href="{% url 'common:competition_categories' %}">Competition Categories</a>
+                </div>
+            </li>
             <li><a href="{% url 'results' %}">Results</a></li>
             <li><a href="{% url 'common:contact_page' %}">Contact</a></li>
         </ul>

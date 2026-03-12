@@ -53,13 +53,13 @@ td {
     border-radius: 2em;
     border: none;
     background-color: rgb(52, 58, 64);
+    text-decoration: none;
+    color: white;
+    font-weight: bold;
+    display: inline-block;
 }
 
 .create-athlete-btn:hover{
     transform: translateY(-2px);
-}
-.create-athlete-btn a {
-    text-decoration: none;
-    color: white;
-    font-weight: bold;
+    color: white; /* Ensure text stays white on hover if it's an anchor */
 }

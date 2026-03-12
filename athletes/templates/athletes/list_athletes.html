@@ -41,8 +41,6 @@
                 {% endfor %}
             </tbody>
         </table>
-        <button class="create-athlete-btn">
-            <a href="{% url 'athletes:create' %}">CREATE ATHLETE</a>
-        </button>
+        <a href="{% url 'athletes:create' %}" class="create-athlete-btn">CREATE ATHLETE</a>
     </div>
 {% endblock %}

@@ -1,0 +1,44 @@
+{% extends 'common/base.html' %}
+{% load static %}
+
+{% block title %}Age Categories{% endblock %}
+
+{% block extra_head %}
+    <link rel="stylesheet" href="{% static 'athletes/css/athletes-list.css' %}">
+{% endblock %}
+
+{% block body_attrs %}style="--navbar-bg: url('{% static "common/images/athletes-background.jpg" %}'); --navbar-bg-pos: 55% 48%;"{% endblock %}
+
+{% block navbar_title %}Age Categories{% endblock %}
+
+{% block content %}
+    <div class="table-container">
+        <table>
+            <thead>
+                <tr>
+                    <th>Category Name</th>
+                    <th>Gender</th>
+                    <th>Min Age</th>
+                    <th>Max Age</th>
+                    <th>Update</th>
+                    <th>Delete</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for category in age_categories %}
+                    <tr>
+                        <td align="center">{{ category.get_name_display }}</td>
+                        <td align="center">{{ category.get_gender_display }}</td>
+                        <td align="center">{{ category.min_age|default:"N/A" }}</td>
+                        <td align="center">{{ category.max_age|default:"N/A" }}</td>
+                        <td align="center"><a href="{% url 'athletes:update_age_category' category.pk %}" class="update-athlete-btn">UPDATE</a></td>
+                        <td align="center"><a href="{% url 'athletes:delete_age_category' category.pk %}" class="delete-athlete-btn">DELETE</a></td>
+                    </tr>
+                {% empty %}
+                    <h1 class="no-data-message">No data available at this moment!</h1>
+                {% endfor %}
+            </tbody>
+        </table>
+        <a href="{% url 'athletes:create_age_category' %}" class="create-athlete-btn">CREATE AGE CATEGORY</a>
+    </div>
+{% endblock %}

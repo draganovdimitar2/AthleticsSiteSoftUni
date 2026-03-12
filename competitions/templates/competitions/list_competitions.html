@@ -3,6 +3,7 @@
 
 {% block extra_head %}
     <link rel="stylesheet" href="{% static 'competitions/css/athletes-list-cards.css' %}">
+    <link rel="stylesheet" href="{% static 'athletes/css/athletes-list.css' %}">
 {% endblock %}
 
 {% block title %}Competitions{% endblock %}
@@ -21,6 +22,7 @@
                 <p><i class="fa-solid fa-globe"></i> <strong>Country:</strong> {{ competition.country }}</p>
                 <p><i class="fa-solid fa-city"></i> <strong>City:</strong> {{ competition.city }}</p>
                 <p><i class="fa-solid fa-tags"></i> <strong>Category:</strong> {{ competition.category }}</p>
+                <p><i class="fa-solid fa-calendar"></i> <strong>Dates:</strong> {{ competition.start_date }} - {{ competition.end_date }}</p>
             </div>
 
 
@@ -32,9 +34,17 @@
                     <span class="age-empty">No age categories</span>
                 {% endfor %}
             </div>
+
+            <div style="display: flex; justify-content: space-around; margin-top: 1rem;">
+                <a href="{% url 'competitions:update' competition.pk %}" class="update-athlete-btn">UPDATE</a>
+                <a href="{% url 'competitions:delete' competition.pk %}" class="delete-athlete-btn">DELETE</a>
+            </div>
         </div>
     {% empty %}
-        <h2>No data available!</h2>
+        <h2 class="no-data-message">No data available!</h2>
     {% endfor %}
+</div>
+<div style="display: flex; justify-content: center; margin-bottom: 2rem;">
+    <a href="{% url 'competitions:create' %}" class="create-athlete-btn">CREATE COMPETITION</a>
 </div>
 {% endblock %}

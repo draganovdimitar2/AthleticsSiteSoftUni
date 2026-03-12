@@ -41,9 +41,12 @@ class Competition(models.Model):
         related_name="competitions"
     )
 
-    def save(self, *args, **kwargs):  # add simple validation for the dates
-        if self.start_date > self.end_date:
+    def clean(self):
+        if self.start_date and self.end_date and self.start_date > self.end_date:
             raise ValidationError("Start date cannot be after end date.")
+
+    def save(self, *args, **kwargs):
+        self.full_clean()
         super().save(*args, **kwargs)
 
     def __str__(self) -> str:

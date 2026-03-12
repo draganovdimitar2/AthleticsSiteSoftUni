@@ -3,29 +3,83 @@
 
 {% block title %}Main page{% endblock %}
 
-{% block body_attrs %}style="--navbar-bg: url('{% static "common/images/background_image.jpg" %}'); --navbar-bg-pos: 50% 40%;"{% endblock %}
+{% block body_attrs %}class="home-page"{% endblock %}
 
 {% block content %}
     <div class="home-content">
+        <!-- Hero Section -->
         <header class="welcome-header">
-            <h1>Welcome to the Athletics Site</h1>
-            <p>Your one-stop place for track and field records and athlete information.</p>
+            <div class="hero-overlay">
+                <h1>Welcome to the Athletics Site</h1>
+                <p>Your one-stop place for track and field records and athlete information.</p>
+                <div class="hero-actions">
+                    <a href="{% url 'athletes:list' %}" class="btn btn-primary">Browse Athletes</a>
+                    <a href="{% url 'competitions:list' %}" class="btn btn-secondary">View Competitions</a>
+                </div>
+            </div>
         </header>
 
-        <div class="card-container">
-            <a href="{% url 'athletes:overview' %}" class="card-link">
-                <div class="card">
-                    <h2>Athletes</h2>
-                    <p>Explore our database of athletes. View profiles, and check their status.</p>
-                </div>
-            </a>
-            <a href="{% url 'results' %}" class="card-link">
-                <div class="card">
-                    <h2>Records</h2>
-                    <p>Discover world and national records. See the best performances in athletics.</p>
-                </div>
-            </a>
-        </div>
+        <!-- Stats Section -->
+        <section class="stats-section">
+            <div class="stat-card">
+                <i class="fas fa-users"></i>
+                <h3>{{ athletes_count }}</h3>
+                <p>Athletes</p>
+            </div>
+            <div class="stat-card">
+                <i class="fas fa-trophy"></i>
+                <h3>{{ competitions_count }}</h3>
+                <p>Competitions</p>
+            </div>
+             <div class="stat-card">
+                <i class="fas fa-stopwatch"></i>
+                <h3>{{ results_count }}</h3>
+                <p>Total Results</p>
+            </div>
+        </section>
+
+        <!-- Quick Links -->
+        <section class="quick-links">
+            <h2>Explore</h2>
+            <div class="card-container">
+                <a href="{% url 'athletes:overview' %}" class="card-link">
+                    <div class="card">
+                        <div class="card-icon"><i class="fas fa-running"></i></div>
+                        <h2>Athletes</h2>
+                        <p>Explore our database of athletes. View profiles, and check their status.</p>
+                    </div>
+                </a>
+                <a href="{% url 'results' %}" class="card-link">
+                    <div class="card">
+                        <div class="card-icon"><i class="fas fa-clipboard-list"></i></div>
+                        <h2>Records</h2>
+                        <p>Discover world and national records. See the best performances in athletics.</p>
+                    </div>
+                </a>
+            </div>
+        </section>
+
+        <!-- Latest Results Section -->
+        {% if latest_results %}
+        <section class="latest-results">
+            <h2>Latest Results</h2>
+            <div class="results-list">
+                {% for result in latest_results %}
+                    <div class="result-item">
+                        <div class="result-info">
+                            <strong>{{ result.athlete.first_name }} {{ result.athlete.last_name }}</strong>
+                            <span>{{ result.discipline.name }}</span>
+                        </div>
+                        <div class="result-details">
+                            <span class="result-value">{{ result.result_value }}</span>
+                            <span class="result-date">{{ result.result_date }}</span>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+        </section>
+        {% endif %}
+
     </div>
 {% endblock %}
 

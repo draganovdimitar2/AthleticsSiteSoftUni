@@ -1,7 +1,7 @@
 {% extends 'common/base.html' %}
 {% load static %}
 
-{% block title %}Disciplines{% endblock %}
+{% block title %}Competition Categories{% endblock %}
 
 {% block extra_head %}
     <link rel="stylesheet" href="{% static 'athletes/css/athletes-list.css' %}">
@@ -9,32 +9,30 @@
 
 {% block body_attrs %}style="--navbar-bg: url('{% static "common/images/athletes-background.jpg" %}'); --navbar-bg-pos: 55% 48%;"{% endblock %}
 
-{% block navbar_title %}Disciplines{% endblock %}
+{% block navbar_title %}Competition Categories{% endblock %}
 
 {% block content %}
     <div class="table-container">
         <table>
             <thead>
                 <tr>
-                    <th>№</th>
-                    <th>List of disciplines</th>
+                    <th>Category Name</th>
                     <th>Update</th>
                     <th>Delete</th>
                 </tr>
             </thead>
             <tbody>
-                {% for discipline in disciplines %}
+                {% for category in competition_categories %}
                     <tr>
-                        <td align="center">{{ discipline.id }}</td>
-                        <td align="center">{{ discipline.name }}</td>
-                        <td align="center"><a href="{% url 'athletes:update_discipline' discipline.pk %}" class="update-athlete-btn">UPDATE</a></td>
-                        <td align="center"><a href="{% url 'athletes:delete_discipline' discipline.pk %}" class="delete-athlete-btn">DELETE</a></td>
+                        <td align="center">{{ category.category_name }}</td>
+                        <td align="center"><a href="{% url 'competitions:update_competition_category' category.pk %}" class="update-athlete-btn">UPDATE</a></td>
+                        <td align="center"><a href="{% url 'competitions:delete_competition_category' category.pk %}" class="delete-athlete-btn">DELETE</a></td>
                     </tr>
                 {% empty %}
                     <h1 class="no-data-message">No data available at this moment!</h1>
                 {% endfor %}
             </tbody>
         </table>
-        <a href="{% url 'athletes:create_discipline' %}" class="create-athlete-btn">CREATE DISCIPLINE</a>
+        <a href="{% url 'competitions:create_competition_category' %}" class="create-athlete-btn">CREATE COMPETITION CATEGORY</a>
     </div>
 {% endblock %}

@@ -1,6 +1,24 @@
 from django import forms
 from datetime import date
-from .models import Athlete
+from .models import Athlete, Discipline, AgeCategory
+
+
+class DisciplineForm(forms.ModelForm):
+    class Meta:
+        model = Discipline
+        fields = ['name']
+        labels = {
+            'name': 'Discipline Name',
+        }
+        widgets = {
+            'name': forms.TextInput(attrs={'placeholder': 'Shot put'}),
+        }
+
+
+class AgeCategoryForm(forms.ModelForm):
+    class Meta:
+        model = AgeCategory
+        fields = ['name', 'gender']
 
 
 class BaseAthleteForm(forms.ModelForm):

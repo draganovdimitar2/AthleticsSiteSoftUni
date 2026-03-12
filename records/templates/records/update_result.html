@@ -5,17 +5,16 @@
     <link rel="stylesheet" href="{% static 'athletes/css/athletes-create.css' %}">
 {% endblock %}
 
-{% block title %}Create Athlete{% endblock %}
+{% block title %}Update Result{% endblock %}
 
-{% block body_attrs %}style="--navbar-bg: url('{% static "common/images/athletes-background.jpg" %}'); --navbar-bg-pos: 55% 48%;"{% endblock %}
+{% block body_attrs %}style="--navbar-bg: url('{% static "common/images/results-background.jpg" %}'); --navbar-bg-pos: 50% 50%;"{% endblock %}
 
-{% block navbar_title %}Create Athlete{% endblock %}
+{% block navbar_title %}Update Result{% endblock %}
 
 {% block content %}
     <section class="create-athlete-section">
-        <h1 class="form-header">CREATE ATHLETE</h1>
+        <h1 class="form-header">UPDATE RESULT</h1>
         <form method="post" novalidate>
-        {# make POST to athletes/create/ #}
             {% csrf_token %}
             {% if form.non_field_errors %}
                 <div class="field-errors">

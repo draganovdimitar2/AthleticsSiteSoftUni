@@ -1,10 +1,7 @@
 document.addEventListener('DOMContentLoaded', function() {
     const competitionNameInput = document.getElementById('competition-name-input');
-    const yearSelect = document.querySelector('.year-select');
-    const resultsForm = document.querySelector('.results'); // The form element
-    const tableWrapper = document.querySelector('.table-wrapper');
-    const noResultsFoundDiv = document.querySelector('.no-results-found');
-    const wrapperResultsDiv = document.querySelector('.wrapper-results'); // The main wrapper for results and form
+    const yearSelect = document.getElementById('year-select'); // Use ID now
+    const wrapperResultsDiv = document.querySelector('.wrapper-results');
 
     function debounce(func, delay) {
         let timeout;
@@ -16,6 +13,9 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     const fetchResults = async () => {
+        const resultsForm = document.querySelector('.results');
+        if (!resultsForm) return;
+
         const formData = new FormData(resultsForm);
         const params = new URLSearchParams(formData).toString();
         const url = `${window.location.pathname}?${params}`;
@@ -23,7 +23,7 @@ document.addEventListener('DOMContentLoaded', function() {
         try {
             const response = await fetch(url, {
                 headers: {
-                    'X-Requested-With': 'XMLHttpRequest' // Identify as AJAX request
+                    'X-Requested-With': 'XMLHttpRequest'
                 }
             });
             if (!response.ok) {
@@ -31,61 +31,37 @@ document.addEventListener('DOMContentLoaded', function() {
             }
             const html = await response.text();
 
-            // Create a temporary div to parse the fetched HTML
-            const parser = new DOMParser();
-            const doc = parser.parseFromString(html, 'text/html');
-
-            const newTableWrapper = doc.querySelector('.table-wrapper');
-            const newNoResultsFoundDiv = doc.querySelector('.no-results-found');
-
-            if (newTableWrapper && tableWrapper) {
-                tableWrapper.innerHTML = newTableWrapper.innerHTML;
-                // Ensure no-results-found is hidden if results are found
-                if (noResultsFoundDiv) {
-                    noResultsFoundDiv.style.display = 'none';
-                }
-                // Also ensure the main wrapper is visible if it was hidden
-                if (wrapperResultsDiv) {
-                    wrapperResultsDiv.style.display = 'block';
-                }
-            } else if (newNoResultsFoundDiv && noResultsFoundDiv) {
-                // If there are no results, hide the table and show the no results message
-                if (tableWrapper) {
-                    tableWrapper.innerHTML = ''; // Clear table content
-                }
-                noResultsFoundDiv.innerHTML = newNoResultsFoundDiv.innerHTML;
-                noResultsFoundDiv.style.display = 'block';
-                 if (wrapperResultsDiv) {
-                    // Adjust visibility of the main wrapper if needed, depending on how you want to handle it
-                    // For now, if no results and newNoResultsFoundDiv is within the general flow, keep wrapperResultsDiv block
-                    wrapperResultsDiv.style.display = 'none'; // Hide wrapper-results if no results
-                }
-
-            } else {
-                // Fallback if neither newTableWrapper nor newNoResultsFoundDiv is found,
-                // or if the original elements are missing.
-                console.error("Could not find expected content in the fetched HTML.");
-                if (tableWrapper) tableWrapper.innerHTML = '<p>Error loading results.</p>';
+            // Re-render the entire partial content
+            if (wrapperResultsDiv) {
+                wrapperResultsDiv.innerHTML = html;
+                // After re-rendering, we need to re-attach listeners because the elements are new
+                attachEventListeners();
             }
 
         } catch (e) {
             console.error('Error fetching results:', e);
-            if (tableWrapper) tableWrapper.innerHTML = '<p>Error loading results.</p>';
         }
     };
 
-    const debouncedFetchResults = debounce(fetchResults, 800); // 800ms debounce
+    const debouncedFetchResults = debounce(fetchResults, 400); // Faster response
 
-    if (competitionNameInput) {
-        competitionNameInput.addEventListener('input', debouncedFetchResults);
+    function attachEventListeners() {
+        const input = document.getElementById('competition-name-input');
+        const select = document.getElementById('year-select');
+
+        if (input) {
+            input.addEventListener('input', debouncedFetchResults);
+            // Put cursor at the end of input if it was active
+            input.focus();
+            const val = input.value;
+            input.value = '';
+            input.value = val;
+        }
+
+        if (select) {
+            select.addEventListener('change', fetchResults); // No debounce for dropdown
+        }
     }
 
-    if (yearSelect) {
-        yearSelect.addEventListener('change', debouncedFetchResults);
-    }
-
-    // Remove existing inline onchange from yearSelect if it was present
-    if (yearSelect && yearSelect.hasAttribute('onchange')) {
-        yearSelect.removeAttribute('onchange');
-    }
+    attachEventListeners();
 });

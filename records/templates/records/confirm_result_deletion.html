@@ -1,0 +1,34 @@
+{% extends 'common/base.html' %}
+{% load static %}
+
+{% block extra_head %}
+    <link rel="stylesheet" href="{% static 'athletes/css/athletes-delete.css' %}">
+{% endblock %}
+
+{% block title %}Confirm Result Deletion{% endblock %}
+
+{% block body_attrs %}style="--navbar-bg: url('{% static "common/images/results-background.jpg" %}'); --navbar-bg-pos: 50% 50%;"{% endblock %}
+
+{% block navbar_title %}Confirm Result Deletion{% endblock %}
+
+{% block content %}
+    <div class="confirmation-container">
+        <h2>Confirm Deletion</h2>
+
+        <p>
+            You are about to delete the result of <strong>{{ result.athlete.first_name }} {{ result.athlete.last_name }}</strong> 
+            in <strong>{{ result.discipline.name }}</strong>.
+            This action cannot be undone.
+        </p>
+
+        <form method="post">
+            {% csrf_token %}
+            <button type="submit" class="btn btn-danger">
+                Delete
+            </button>
+            <a href="{% url 'results' %}" class="btn btn-secondary">
+                Cancel
+            </a>
+        </form>
+    </div>
+{% endblock %}
