@@ -87,7 +87,7 @@ class AgeCategory(models.Model):
 
     def save(self, *args, **kwargs):
         category_age_map = {
-            'U14': (12, 14),
+            'U14': (None, 14),
             'U16': (14, 16),
             'U18': (16, 18),
             'U20': (18, 20),
