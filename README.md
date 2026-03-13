@@ -5,19 +5,20 @@ about athletes, competitions, and athletic records.
 
 ## ✨ Features
 
-* 🏃‍♂️ **Athlete Management**: Create, update, view, and delete athlete profiles. (Full CRUD)
-* 🏆 **Competition Listings**: View a list of upcoming and past competitions.
-* 📊 **Results Tracking**: View results from various competitions, with options to filter by year and competition.
-* 🏋️‍♀️ **Discipline Information**: A dedicated page listing all supported athletic disciplines.
-* 📧 **Contact Page**: A page to display contact information.
+* 🏃‍♂️ **Athlete Management**: Full CRUD support for athlete profiles, including personal details and discipline associations.
+* 🏷️ **Age Category Management**: Manage age categories (e.g., U14, U16, Veterans) with gender-specific rules.
+* 🏆 **Competition Management**: Organize competitions with start/end dates, location, and categorization (Indoor/Outdoor/Championship/Masters).
+* 📊 **Results Tracking**: Record and view athlete performance. Includes automatic validation to ensure results match the athlete's age category and the competition's timeframe.
+* 🏋️‍♀️ **Discipline Information**: A dedicated section for managing and viewing athletic disciplines.
+* 📧 **Contact Page**: A simple contact interface.
 
 ## 📂 Project Structure
 
 The project is organized into several Django apps:
 
-* `athletes`: Manages athlete profiles, including creation, updating, and listing.
-* `competitions`: Handles the display of competition information.
-* `records`: Manages the display of results and records, including filtering capabilities.
+* `athletes`: Manages athlete profiles, disciplines, and age categories. Includes logic for age calculation and category assignment.
+* `competitions`: Handles the organization of competitions, including categories (Indoor, Outdoor, etc.) and age group eligibility.
+* `records`: Manages competition results. Features strict data integrity checks to ensure results are valid for the given athlete and competition dates.
 * `common`: Contains the core layout, shared templates, and static files for the home page, disciplines page, and
   contact page.
 
@@ -110,29 +111,6 @@ purposes.
     ```bash
     python manage.py migrate
     ```
-
-8. **Data Loading**
-
-- After migrations are complete, data needs to be loaded to enable full project functionality.
-- Generating data can be tedious, so I've provided a script to simplify the process.
-- Ensure you are in the project root (`cd AthleticsSiteSoftUni`), then run:
-    ```bash
-    python load_data.py
-    ```
-- At the end of the output, you will see this:
-    ```bash
-    ✅ Data loading completed successfully!
-    
-    Summary:
-      • Athletes: 18
-      • Age Categories: 24
-      • Disciplines: 16
-      • Competition Categories: 4
-      • Competitions: 6
-      • Results: 51
-    ```
-- If you see this output, the data has been loaded successfully, and you are ready for the next step: running the
-  development server.
 
 ### 💻 Running the Development Server
 
