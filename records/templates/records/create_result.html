@@ -14,7 +14,7 @@
 {% block content %}
     <section class="create-athlete-section">
         <h1 class="form-header">CREATE RESULT</h1>
-        <form method="post" novalidate>
+        <form method="post" novalidate data-get-age-category-url="{% url 'get_age_category_ajax' %}">
             {% csrf_token %}
             {% if form.non_field_errors %}
                 <div class="field-errors">
@@ -36,4 +36,8 @@
             <button class="form-submit-btn">Submit</button>
         </form>
     </section>
+{% endblock %}
+
+{% block extra_scripts %}
+    <script src="{% static 'records/js/result_form.js' %}"></script>
 {% endblock %}
