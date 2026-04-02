@@ -1,10 +1,10 @@
 from django.urls import path
-from records.views import results, create_result, update_result, delete_result, get_age_category_ajax
+from records.views import ResultsListView, CreateResultView, UpdateResultView, DeleteResultView, GetAgeCategoryAjaxView
 
 urlpatterns = [
-    path("", results, name='results'),
-    path("create/", create_result, name='create_result'),
-    path("update/<int:pk>/", update_result, name='update_result'),
-    path("delete/<int:pk>/", delete_result, name='delete_result'),
-    path("get-age-category/", get_age_category_ajax, name='get_age_category_ajax'),
+    path("", ResultsListView.as_view(), name='results'),
+    path("create/", CreateResultView.as_view(), name='create_result'),
+    path("update/<int:pk>/", UpdateResultView.as_view(), name='update_result'),
+    path("delete/<int:pk>/", DeleteResultView.as_view(), name='delete_result'),
+    path("get-age-category/", GetAgeCategoryAjaxView.as_view(), name='get_age_category_ajax'),
 ]

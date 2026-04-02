@@ -1,142 +1,89 @@
-from django.http import HttpRequest, HttpResponse
-from django.shortcuts import render, redirect, get_object_or_404
+from django.urls import reverse_lazy
+from django.views.generic import TemplateView, ListView, CreateView, UpdateView, DeleteView
+from django.contrib.auth.mixins import LoginRequiredMixin
 from athletes.models import Athlete, Discipline, AgeCategory
 from .forms import CreateAthlete, UpdateAthlete, DisciplineForm, AgeCategoryForm
 
 
-# Create your views here.
-def overview(request: HttpRequest) -> HttpResponse:
-    return render(request, 'athletes/overview.html')
+from rest_framework import viewsets, permissions
+from .serializers import AthleteSerializer
+
+class AthleteViewSet(viewsets.ModelViewSet):
+    queryset = Athlete.objects.all()
+    serializer_class = AthleteSerializer
+    permission_classes = [permissions.IsAuthenticatedOrReadOnly]
 
 
-def list_athletes(request: HttpRequest) -> HttpResponse:
-    athletes = Athlete.objects.all()
-    context = {
-        'athletes': athletes
-    }
-    return render(request, 'athletes/list_athletes.html', context)
+class OverviewView(TemplateView):
+    template_name = 'athletes/overview.html'
 
 
-def create_athlete(request: HttpRequest) -> HttpResponse:
-    if request.method == "POST":
-        form = CreateAthlete(request.POST)
-        if form.is_valid():
-            form.save()
-            return redirect('athletes:list')
-    else:  # load the form if request is "GET"
-        form = CreateAthlete()
-    context = {
-        'form': form
-    }
-    return render(request, 'athletes/create_athlete.html', context)
+class ListAthletesView(ListView):
+    model = Athlete
+    template_name = 'athletes/list_athletes.html'
+    context_object_name = 'athletes'
 
 
-def update_athlete(request: HttpRequest, athlete_id: int) -> HttpResponse:
-    athlete = get_object_or_404(Athlete, pk=athlete_id)
-    if request.method == "POST":
-        form = UpdateAthlete(request.POST, instance=athlete)
-        if form.is_valid():
-            form.save()
-            return redirect('athletes:list')
-    else:  # load the form if request is "GET"
-        form = UpdateAthlete(instance=athlete)
-    context = {
-        'form': form
-    }
-    return render(request, 'athletes/update_athlete.html', context)
+class CreateAthleteView(LoginRequiredMixin, CreateView):
+    model = Athlete
+    form_class = CreateAthlete
+    template_name = 'athletes/create_athlete.html'
+    success_url = reverse_lazy('athletes:list')
 
 
-def confirm_delete_athlete(request: HttpRequest, athlete_id: int) -> HttpResponse:
-    athlete_to_delete = get_object_or_404(Athlete, pk=athlete_id)
-    if request.method == "POST":
-        athlete_to_delete.delete()
-        return redirect('athletes:list')
-    else:
-        context = {
-            'athlete_to_delete': athlete_to_delete
-        }
-        return render(request, 'athletes/confirm_athlete_deletion.html', context)
+class UpdateAthleteView(LoginRequiredMixin, UpdateView):
+    model = Athlete
+    form_class = UpdateAthlete
+    template_name = 'athletes/update_athlete.html'
+    pk_url_kwarg = 'athlete_id'
+    success_url = reverse_lazy('athletes:list')
 
 
-def create_discipline(request: HttpRequest) -> HttpResponse:
-    if request.method == "POST":
-        form = DisciplineForm(request.POST)
-        if form.is_valid():
-            form.save()
-            return redirect('common:disciplines')
-    else:
-        form = DisciplineForm()
-    context = {
-        'form': form
-    }
-    return render(request, 'athletes/create_discipline.html', context)
+class DeleteAthleteView(LoginRequiredMixin, DeleteView):
+    model = Athlete
+    template_name = 'athletes/confirm_athlete_deletion.html'
+    pk_url_kwarg = 'athlete_id'
+    context_object_name = 'athlete_to_delete'
+    success_url = reverse_lazy('athletes:list')
 
 
-def update_discipline(request: HttpRequest, pk: int) -> HttpResponse:
-    discipline = get_object_or_404(Discipline, pk=pk)
-    if request.method == "POST":
-        form = DisciplineForm(request.POST, instance=discipline)
-        if form.is_valid():
-            form.save()
-            return redirect('common:disciplines')
-    else:
-        form = DisciplineForm(instance=discipline)
-    context = {
-        'form': form,
-        'discipline': discipline
-    }
-    return render(request, 'athletes/update_discipline.html', context)
+class CreateDisciplineView(LoginRequiredMixin, CreateView):
+    model = Discipline
+    form_class = DisciplineForm
+    template_name = 'athletes/create_discipline.html'
+    success_url = reverse_lazy('common:disciplines')
 
 
-def delete_discipline(request: HttpRequest, pk: int) -> HttpResponse:
-    discipline = get_object_or_404(Discipline, pk=pk)
-    if request.method == "POST":
-        discipline.delete()
-        return redirect('common:disciplines')
-    else:
-        context = {
-            'discipline': discipline
-        }
-        return render(request, 'athletes/confirm_discipline_deletion.html', context)
+class UpdateDisciplineView(LoginRequiredMixin, UpdateView):
+    model = Discipline
+    form_class = DisciplineForm
+    template_name = 'athletes/update_discipline.html'
+    success_url = reverse_lazy('common:disciplines')
 
 
-def create_age_category(request: HttpRequest) -> HttpResponse:
-    if request.method == "POST":
-        form = AgeCategoryForm(request.POST)
-        if form.is_valid():
-            form.save()
-            return redirect('common:age_categories')
-    else:
-        form = AgeCategoryForm()
-    context = {
-        'form': form
-    }
-    return render(request, 'athletes/create_age_category.html', context)
+class DeleteDisciplineView(LoginRequiredMixin, DeleteView):
+    model = Discipline
+    template_name = 'athletes/confirm_discipline_deletion.html'
+    context_object_name = 'discipline'
+    success_url = reverse_lazy('common:disciplines')
 
 
-def update_age_category(request: HttpRequest, pk: int) -> HttpResponse:
-    age_category = get_object_or_404(AgeCategory, pk=pk)
-    if request.method == "POST":
-        form = AgeCategoryForm(request.POST, instance=age_category)
-        if form.is_valid():
-            form.save()
-            return redirect('common:age_categories')
-    else:
-        form = AgeCategoryForm(instance=age_category)
-    context = {
-        'form': form,
-        'age_category': age_category
-    }
-    return render(request, 'athletes/update_age_category.html', context)
+class CreateAgeCategoryView(LoginRequiredMixin, CreateView):
+    model = AgeCategory
+    form_class = AgeCategoryForm
+    template_name = 'athletes/create_age_category.html'
+    success_url = reverse_lazy('common:age_categories')
 
 
-def delete_age_category(request: HttpRequest, pk: int) -> HttpResponse:
-    age_category = get_object_or_404(AgeCategory, pk=pk)
-    if request.method == "POST":
-        age_category.delete()
-        return redirect('common:age_categories')
-    else:
-        context = {
-            'age_category': age_category
-        }
-        return render(request, 'athletes/confirm_age_category_deletion.html', context)
+class UpdateAgeCategoryView(LoginRequiredMixin, UpdateView):
+    model = AgeCategory
+    form_class = AgeCategoryForm
+    template_name = 'athletes/update_age_category.html'
+    success_url = reverse_lazy('common:age_categories')
+
+
+class DeleteAgeCategoryView(LoginRequiredMixin, DeleteView):
+    model = AgeCategory
+    template_name = 'athletes/confirm_age_category_deletion.html'
+    context_object_name = 'age_category'
+    success_url = reverse_lazy('common:age_categories')

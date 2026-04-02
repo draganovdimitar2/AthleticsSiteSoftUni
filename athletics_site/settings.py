@@ -37,8 +37,12 @@ PROJECT_APPS = [
     'common',
     'records',
     'athletes',
-    'competitions'
+    'competitions',
+    'accounts',
 ]
+
+LOGIN_REDIRECT_URL = 'common:home_page'
+LOGOUT_REDIRECT_URL = 'common:home_page'
 
 INSTALLED_APPS = [
     'django.contrib.admin',
@@ -47,6 +51,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'rest_framework',
 ] + PROJECT_APPS
 
 MIDDLEWARE = [
@@ -87,9 +92,9 @@ WSGI_APPLICATION = 'athletics_site.wsgi.application'
 DATABASES = {
     "default": {
         "ENGINE": "django.db.backends.postgresql",
-        "NAME": os.getenv("DB_NAME"),
-        "USER": os.getenv("DB_USER"),
-        "PASSWORD": os.getenv("DB_PASSWORD"),
+        "NAME": os.getenv("POSTGRES_DB"),
+        "USER": os.getenv("POSTGRES_USER"),
+        "PASSWORD": os.getenv("POSTGRES_PASSWORD"),
         "HOST": os.getenv("DB_HOST"),
         "PORT": os.getenv("DB_PORT"),
     }

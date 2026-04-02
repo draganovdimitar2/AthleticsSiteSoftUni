@@ -1,0 +1,39 @@
+{% extends 'common/base.html' %}
+{% load static %}
+
+{% block extra_head %}
+    <link rel="stylesheet" href="{% static 'athletes/css/athletes-create.css' %}">
+{% endblock %}
+
+{% block title %}Register{% endblock %}
+
+{% block body_attrs %}style="--navbar-bg: url('{% static "common/images/background_image.jpg" %}'); --navbar-bg-pos: 50% 50%;"{% endblock %}
+
+{% block navbar_title %}Register{% endblock %}
+
+{% block content %}
+    <section class="create-athlete-section">
+        <h1 class="form-header">REGISTER</h1>
+        <form method="post" novalidate>
+            {% csrf_token %}
+            {% if form.non_field_errors %}
+                <div class="field-errors">
+                    {{ form.non_field_errors }}
+                </div>
+            {% endif %}
+            {% for field in form %}
+                <div class="form-group">
+                    {{ field.label_tag }}
+                    {{ field }}
+                    {% if field.help_text %}
+                        <small class="help-text">{{ field.help_text }}</small>
+                    {% endif %}
+                    {% if field.errors %}
+                        <div class="field-errors">{{ field.errors }}</div>
+                    {% endif %}
+                </div>
+            {% endfor %}
+            <button class="form-submit-btn">Register</button>
+        </form>
+    </section>
+{% endblock %}

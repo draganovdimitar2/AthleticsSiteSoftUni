@@ -19,14 +19,15 @@ from django.contrib import admin
 from django.urls import path, include
 from django.conf import settings
 from django.conf.urls.static import static
-from common.views import custom_404_view # Import the custom 404 view
+from common.views import Custom404View # Import the custom 404 view
 
 urlpatterns = [
     path("admin/", admin.site.urls),
     path('', include('common.urls')),
     path('results/', include('records.urls')),
     path('athletes/', include('athletes.urls')),
-    path('competitions/', include('competitions.urls'))
+    path('competitions/', include('competitions.urls')),
+    path('accounts/', include('accounts.urls')),
 ]
 
-handler404 = custom_404_view # Set the custom 404 handler
+handler404 = Custom404View.as_view() # Set the custom 404 handler

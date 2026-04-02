@@ -1,119 +1,111 @@
-from django.http import HttpRequest, HttpResponse, JsonResponse
-from django.shortcuts import render, redirect, get_object_or_404
+from django.http import JsonResponse, HttpResponse
+from django.shortcuts import get_object_or_404
 from django.template.loader import render_to_string
+from django.urls import reverse_lazy
+from django.views import View
+from django.views.generic import ListView, CreateView, UpdateView, DeleteView
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.db.models import Q
-from athletes.models import Athlete, AgeCategory
+from athletes.models import Athlete
 from athletes.utils import calculate_age
 from competitions.models import Competition
 from .models import Results
 from .forms import ResultsForm
 
-# Create your views here.
-def get_age_category_ajax(request: HttpRequest) -> JsonResponse:
-    athlete_id = request.GET.get('athlete_id')
-    competition_id = request.GET.get('competition_id')
 
-    if not competition_id:
-        return JsonResponse({'error': 'Missing competition_id'}, status=400)
+class GetAgeCategoryAjaxView(LoginRequiredMixin, View):
+    def get(self, request, *args, **kwargs):
+        athlete_id = request.GET.get('athlete_id')
+        competition_id = request.GET.get('competition_id')
 
-    try:
-        competition = Competition.objects.get(pk=competition_id)
-        categories = competition.age_groups.all()
+        if not competition_id:
+            return JsonResponse({'error': 'Missing competition_id'}, status=400)
+
+        try:
+            competition = Competition.objects.get(pk=competition_id)
+            categories = competition.age_groups.all()
+
+            selected_id = None
+            if athlete_id:
+                try:
+                    athlete = Athlete.objects.get(pk=athlete_id)
+                    athlete_age = calculate_age(athlete.birth_date, competition.start_date)
+
+                    match = competition.age_groups.filter(
+                        gender=athlete.gender
+                    ).filter(
+                        Q(min_age__lte=athlete_age) | Q(min_age__isnull=True),
+                        Q(max_age__gte=athlete_age) | Q(max_age__isnull=True)
+                    ).first()
+
+                    if match:
+                        selected_id = match.id
+                except (Athlete.DoesNotExist, ValueError):
+                    pass
+
+            return JsonResponse({
+                'categories': [{'id': c.id, 'name': str(c)} for c in categories],
+                'selected_id': selected_id
+            })
+
+        except Competition.DoesNotExist:
+            return JsonResponse({'error': 'Competition not found'}, status=404)
+
+
+class ResultsListView(ListView):
+    model = Results
+    template_name = 'records/list.html'
+    context_object_name = 'results'
+
+    def get_queryset(self):
+        queryset = super().get_queryset()
+        selected_year = self.request.GET.get('year')
+        selected_competition_name = self.request.GET.get('competition_name')
+
+        if selected_year:
+            queryset = queryset.filter(result_date__year=selected_year)
+        if selected_competition_name:
+            queryset = queryset.filter(competition__name__icontains=selected_competition_name)
         
-        selected_id = None
-        if athlete_id:
-            try:
-                athlete = Athlete.objects.get(pk=athlete_id)
-                athlete_age = calculate_age(athlete.birth_date, competition.start_date)
+        for r in queryset:
+            r.unit = 's' if r.discipline.name[0].isdigit() else 'm'
+        
+        return queryset
 
-                match = competition.age_groups.filter(
-                    gender=athlete.gender
-                ).filter(
-                    Q(min_age__lte=athlete_age) | Q(min_age__isnull=True),
-                    Q(max_age__gte=athlete_age) | Q(max_age__isnull=True)
-                ).first()
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        selected_year = self.request.GET.get('year')
+        selected_competition_name = self.request.GET.get('competition_name')
 
-                if match:
-                    selected_id = match.id
-            except (Athlete.DoesNotExist, ValueError):
-                pass
+        context['years'] = sorted({r.result_date.year for r in Results.objects.all()})
+        context['selected_year'] = int(selected_year) if selected_year else None
+        context['selected_competition_name'] = selected_competition_name
+        context['competitions'] = {r.competition for r in Results.objects.all()}
+        return context
 
-        return JsonResponse({
-            'categories': [{'id': c.id, 'name': str(c)} for c in categories],
-            'selected_id': selected_id
-        })
-
-    except Competition.DoesNotExist:
-        return JsonResponse({'error': 'Competition not found'}, status=404)
+    def render_to_response(self, context, **response_kwargs):
+        if self.request.headers.get('x-requested-with') == 'XMLHttpRequest':
+            html = render_to_string('records/_results_partial.html', context, request=self.request)
+            return HttpResponse(html)
+        return super().render_to_response(context, **response_kwargs)
 
 
-def results(request: HttpRequest) -> HttpResponse:
-    all_results = Results.objects.all()
-
-    selected_year = request.GET.get('year')
-    selected_competition_name = request.GET.get('competition_name')
-
-    if selected_year:
-        all_results = all_results.filter(result_date__year=selected_year)
-    
-    if selected_competition_name:
-        all_results = all_results.filter(competition__name__icontains=selected_competition_name)
-
-    for r in all_results:
-        r.unit = 's' if r.discipline.name[0].isdigit() else 'm'
-
-    context = {
-        'results': all_results,
-        'years': sorted({r.result_date.year for r in Results.objects.all()}),
-        'selected_year': int(selected_year) if selected_year else None,
-        'selected_competition_name': selected_competition_name,
-        'competitions': {r.competition for r in Results.objects.all()}
-    }
-
-    if request.headers.get('x-requested-with') == 'XMLHttpRequest':
-        html = render_to_string('records/_results_partial.html', context, request=request)
-        return HttpResponse(html)
-    else:
-        return render(request, 'records/list.html', context)
+class CreateResultView(LoginRequiredMixin, CreateView):
+    model = Results
+    form_class = ResultsForm
+    template_name = 'records/create_result.html'
+    success_url = reverse_lazy('results')
 
 
-def create_result(request: HttpRequest) -> HttpResponse:
-    if request.method == "POST":
-        form = ResultsForm(request.POST)
-        if form.is_valid():
-            form.save()
-            return redirect('results')
-    else:
-        form = ResultsForm()
-    context = {
-        'form': form
-    }
-    return render(request, 'records/create_result.html', context)
+class UpdateResultView(LoginRequiredMixin, UpdateView):
+    model = Results
+    form_class = ResultsForm
+    template_name = 'records/update_result.html'
+    success_url = reverse_lazy('results')
 
 
-def update_result(request: HttpRequest, pk: int) -> HttpResponse:
-    result = get_object_or_404(Results, pk=pk)
-    if request.method == "POST":
-        form = ResultsForm(request.POST, instance=result)
-        if form.is_valid():
-            form.save()
-            return redirect('results')
-    else:
-        form = ResultsForm(instance=result)
-    context = {
-        'form': form,
-        'result': result
-    }
-    return render(request, 'records/update_result.html', context)
-
-
-def delete_result(request: HttpRequest, pk: int) -> HttpResponse:
-    result = get_object_or_404(Results, pk=pk)
-    if request.method == "POST":
-        result.delete()
-        return redirect('results')
-    else:
-        context = {
-            'result': result
-        }
-        return render(request, 'records/confirm_result_deletion.html', context)
+class DeleteResultView(LoginRequiredMixin, DeleteView):
+    model = Results
+    template_name = 'records/confirm_result_deletion.html'
+    context_object_name = 'result'
+    success_url = reverse_lazy('results')

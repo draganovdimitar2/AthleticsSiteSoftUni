@@ -47,41 +47,19 @@ purposes.
    git clone https://github.com/draganovdimitar2/AthleticsSiteSoftUni.git
    cd AthleticsSiteSoftUni
    ```
-
-2. **Create and activate a virtual environment:**
-
-- For macOS/Linux:
-     ```bash
-     python3 -m venv .venv
-     source .venv/bin/activate 
-     ````
-- For Windows:
-  ```bash
-  python -m venv .venv
-  .venv\Scripts\activate
-  ```
-
-3. **Install the dependencies:**
-   ```bash
-   pip install -r requirements.txt
-   ```
-4. **Create a PostgreSQL database.**
-
-- **Note:** Remember your database credentials, as they will be needed in the next step.
-
-5. **Create a `.env` file** in the project root directory and add your database credentials. You can use the
-   `.env.example` as a template:
+2. **Create a `.env` file** in the project root directory.
+    - **Note:** The Postgres image expects these exact variables, otherwise the project won't run.
     - For now, only add database credentials; the secret key will be added in the next step.
-    ```
-    SECRET_KEY=your-secret-key  # we will add this in the next step
-    DB_NAME=your-db-name
-    DB_USER=your-db-user
-    DB_PASSWORD=your-db-password
-    DB_HOST=localhost
-    DB_PORT=5432
-    ```
+   ```
+   SECRET_KEY=your-secret-key  # we will add this in the next step
+   POSTGRES_DB=athletics_db
+   POSTGRES_USER=postgres
+   POSTGRES_PASSWORD=1234
+   DB_HOST=db
+   DB_PORT=5432
+   ```
 
-6. **Generate a Django secret key**
+3. **Generate a Django secret key**
 
     - Open a Python shell:
     ```bash
@@ -99,28 +77,35 @@ purposes.
     - Copy this string into your .env file, replacing `your-secret-key`:
    ```bash
     SECRET_KEY='y$0f+1t@z6&8qv9#(k!xg!e)0s*e3&j5v)1p)f)r3d@%b1w^a'
-    DB_NAME=your_db_name
-    DB_USER=your_db_user
-    DB_PASSWORD=your_db_password
-    DB_HOST=localhost
-    DB_PORT=5432
+   POSTGRES_DB=athletics_db
+   POSTGRES_USER=postgres
+   POSTGRES_PASSWORD=1234
+   DB_HOST=db
+   DB_PORT=5432
+   ```
+4. Running the whole project:
+
+   ```bash
+   docker compose up -d
    ```
 
 
-7. **Run the database migrations:**
-    ```bash
-    python manage.py migrate
-    ```
+**This command will:**
 
-### 💻 Running the Development Server
+- Pull the required Docker images
+- Build the Django container
+- Create the `web` and `db` containers
+- Run database migrations
 
-Once the setup is complete, you can start the development server:
+## 🧪 Testing 
+1. Open a shell inside the running web container:
+   ```bash
+   docker compose exec web python3 manage.py test
+   ```
+- This will execute all available tests (24 total).
 
-```bash
-python manage.py runserver
-```
 
-The application will be available at `http://127.0.0.1:8000/`.
+
 
 ## 🚧 Custom 404 Page
 
