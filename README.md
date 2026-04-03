@@ -125,7 +125,7 @@ the project.
    ```
 
 ## 🧪 Testing 
-1. **Open a shell inside the running web container:**
+1. **Run this command to execute Django tests within the container environment:**
    ```bash
    docker compose exec web python3 manage.py test
    ```
