@@ -15,9 +15,9 @@ RUN pip install -r requirements.txt
 
 COPY . .
 
-RUN python manage.py collectstatic --noinput
-
-COPY entrypoint.sh /app/entrypoint.sh
+RUN sed -i 's/\r$//' /app/entrypoint.sh
 RUN chmod +x /app/entrypoint.sh
 
-CMD ["/app/entrypoint.sh"]
+RUN python manage.py collectstatic --noinput
+
+ENTRYPOINT ["sh", "/app/entrypoint.sh"]
